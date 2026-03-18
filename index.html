@@ -3,290 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prénom Nom — Ingénieur Biomédical</title>
+  <title>Prénom Nom — Biomedical Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --ink: #1a1a1a;
-      --ink-muted: #6b6b6b;
-      --ink-faint: #b0b0b0;
-      --bg: #f7f5f0;
-      --bg-card: #ffffff;
-      --accent: #2a5caa;
-      --accent-light: #e8eef8;
-      --border: #e2ddd6;
+      --ink: #1a1a1a; --ink-muted: #6b6b6b;
+      --bg: #f7f5f0; --bg-card: #ffffff; --accent: #2a5caa;
+      --accent-light: #e8eef8; --border: #e2ddd6;
       --serif: 'DM Serif Display', Georgia, serif;
       --sans: 'DM Sans', sans-serif;
     }
-
     html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; }
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.7;
-    }
+    /* ── SYSTÈME BILINGUE ── */
+    [data-lang] { display: none; }
+    .lang-fr [data-lang="fr"] { display: revert; }
+    .lang-en [data-lang="en"] { display: revert; }
+    span[data-lang] { display: none; }
+    .lang-fr span[data-lang="fr"] { display: inline; }
+    .lang-en span[data-lang="en"] { display: inline; }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(247,245,240,0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(247,245,240,0.93); backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw;
-      height: 56px;
+      padding: 0 5vw; height: 56px;
     }
-    .nav-name {
-      font-family: var(--serif);
-      font-size: 17px;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-    }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      font-size: 13px; font-weight: 400;
-      color: var(--ink-muted); text-decoration: none;
-      letter-spacing: 0.04em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
+    .nav-name { font-family: var(--serif); font-size: 17px; color: var(--ink); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 28px; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
+    .lang-toggle { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .lang-btn { padding: 5px 11px; cursor: pointer; border: none; background: transparent; color: var(--ink-muted); font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.05em; transition: all 0.15s; }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+    .lang-btn:not(.active):hover { background: var(--accent-light); color: var(--accent); }
+    .lang-sep { width: 1px; background: var(--border); height: 28px; }
 
     /* HERO */
-    header {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 80px 5vw 60px;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-      align-items: center;
-    }
-    .hero-text h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      line-height: 1.1;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-    .hero-text h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-subtitle {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink-muted);
-      margin-bottom: 24px;
-      font-weight: 500;
-    }
-    .hero-bio {
-      font-size: 15px;
-      color: var(--ink-muted);
-      max-width: 460px;
-      margin-bottom: 36px;
-      line-height: 1.8;
-    }
+    header { min-height: 100vh; display: flex; align-items: center; padding: 80px 5vw 60px; border-bottom: 1px solid var(--border); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; width: 100%; margin: 0 auto; align-items: center; }
+    .hero-text h1 { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 8px; }
+    .hero-text h1 em { font-style: italic; color: var(--accent); }
+    .hero-subtitle { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); margin-bottom: 24px; font-weight: 500; }
+    .hero-bio { font-size: 15px; color: var(--ink-muted); max-width: 460px; margin-bottom: 36px; line-height: 1.8; }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 22px;
-      border-radius: 4px;
-      font-size: 13px; font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      letter-spacing: 0.02em;
-    }
-    .btn-primary {
-      background: var(--accent); color: #fff;
-      border: 1px solid var(--accent);
-    }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; letter-spacing: 0.02em; }
+    .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
     .btn-primary:hover { background: #1f4a8a; }
-    .btn-outline {
-      background: transparent; color: var(--ink);
-      border: 1px solid var(--border);
-    }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    .hero-visual {
-      display: flex; flex-direction: column; gap: 16px;
-      opacity: 0.85;
-    }
+    .hero-visual { display: flex; flex-direction: column; gap: 16px; }
     .hero-stat-row { display: flex; gap: 12px; }
-    .hero-stat {
-      flex: 1;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-    }
-    .hero-stat-n {
-      font-family: var(--serif);
-      font-size: 2rem;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .hero-stat-l {
-      font-size: 12px;
-      color: var(--ink-muted);
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
+    .hero-stat { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .hero-stat-n { font-family: var(--serif); font-size: 2rem; color: var(--accent); line-height: 1; }
+    .hero-stat-l { font-size: 12px; color: var(--ink-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
     .hero-tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      font-size: 12px;
-      padding: 5px 12px;
-      border-radius: 20px;
-      background: var(--accent-light);
-      color: var(--accent);
-      font-weight: 500;
-    }
+    .tag { font-size: 12px; padding: 5px 12px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-weight: 500; }
 
     /* SECTIONS */
-    section {
-      padding: 100px 5vw;
-      border-bottom: 1px solid var(--border);
-    }
+    section { padding: 100px 5vw; border-bottom: 1px solid var(--border); }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-header { margin-bottom: 56px; }
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      color: var(--ink);
-      line-height: 1.15;
-    }
-    .section-desc {
-      margin-top: 12px;
-      color: var(--ink-muted);
-      max-width: 560px;
-      font-size: 15px;
-    }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 500; margin-bottom: 10px; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); line-height: 1.15; }
+    .section-desc { margin-top: 12px; color: var(--ink-muted); max-width: 560px; font-size: 15px; }
 
-    /* PROJECT CARDS */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.07);
-    }
-    .card-img {
-      width: 100%; aspect-ratio: 16/9;
-      background: var(--accent-light);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    /* Pour une vraie image : remplace le div .card-img par <img src="assets/images/ton-image.jpg" ...> */
+    /* CARDS */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+    .card-img { width: 100%; aspect-ratio: 16/9; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border-bottom: 1px solid var(--border); }
     .card-body { padding: 24px; }
-    .card-category {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .card-title {
-      font-family: var(--serif);
-      font-size: 1.15rem;
-      color: var(--ink);
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
+    .card-category { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .card-title { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 10px; line-height: 1.3; }
     .card-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 18px; }
     .card-links { display: flex; gap: 10px; flex-wrap: wrap; }
-    .card-link {
-      font-size: 12px; font-weight: 500;
-      color: var(--accent); text-decoration: none;
-      border: 1px solid var(--accent-light);
-      padding: 5px 12px; border-radius: 4px;
-      transition: background 0.2s;
-    }
+    .card-link { font-size: 12px; font-weight: 500; color: var(--accent); text-decoration: none; border: 1px solid var(--accent-light); padding: 5px 12px; border-radius: 4px; transition: background 0.2s; }
     .card-link:hover { background: var(--accent-light); }
 
-    /* ILLUSTRATIONS — grille photo */
-    .illus-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .illus-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+    /* BOUTON TÉLÉCHARGEMENT BILINGUE */
+    .dl-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--accent); border: 1px solid var(--accent-light); padding: 5px 12px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .dl-btn:hover { background: var(--accent-light); }
+    .dl-badge { font-size: 10px; background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 3px; letter-spacing: 0.05em; }
+
+    /* ILLUSTRATIONS */
+    .illus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .illus-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
     .illus-item:hover { transform: scale(1.02); }
-    .illus-thumb {
-      width: 100%; aspect-ratio: 1/1;
-      background: var(--accent-light);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-    /* Pour une vraie image : <img src="assets/images/illus1.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;"> */
+    .illus-thumb { width: 100%; aspect-ratio: 1/1; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 2rem; border-bottom: 1px solid var(--border); }
     .illus-caption { padding: 12px 14px; font-size: 13px; color: var(--ink-muted); }
 
     /* ENSEIGNEMENT */
     .teach-list { display: flex; flex-direction: column; gap: 20px; }
-    .teach-item {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 24px;
-      padding: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      align-items: start;
-    }
-    .teach-year {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      color: var(--accent);
-      line-height: 1;
-      padding-top: 4px;
-    }
-    .teach-title {
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
+    .teach-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; align-items: start; }
+    .teach-year { font-family: var(--serif); font-size: 1.4rem; color: var(--accent); line-height: 1; padding-top: 4px; }
+    .teach-title { font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
     .teach-meta { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; }
     .teach-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
 
@@ -295,101 +111,87 @@
     #contact .section-label { color: #6b9fd4; }
     #contact .section-title { color: #fff; }
     #contact .section-desc { color: #9a9a9a; }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
-    .contact-link {
-      display: flex; align-items: center; gap: 12px;
-      color: #ccc; text-decoration: none; font-size: 14px;
-      transition: color 0.2s;
-    }
+    .contact-link { display: flex; align-items: center; gap: 12px; color: #ccc; text-decoration: none; font-size: 14px; transition: color 0.2s; }
     .contact-link:hover { color: #fff; }
-    .contact-icon {
-      width: 36px; height: 36px;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.08);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-    .cv-block {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      padding: 32px;
-    }
+    .contact-icon { width: 36px; height: 36px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .cv-block { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 32px; }
     .cv-block p { color: #9a9a9a; font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
+    .cv-dl-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .cv-dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; transition: background 0.2s; }
+    .cv-dl-btn:hover { background: rgba(255,255,255,0.1); }
+    .cv-dl-badge { font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 3px; }
 
-    footer {
-      background: var(--ink);
-      padding: 24px 5vw;
-      text-align: center;
-      font-size: 12px;
-      color: #555;
-      border-top: 1px solid #2a2a2a;
-    }
+    footer { background: var(--ink); padding: 24px 5vw; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #2a2a2a; }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .hero-grid, .contact-grid { grid-template-columns: 1fr; }
       .hero-visual { display: none; }
       .teach-item { grid-template-columns: 1fr; gap: 8px; }
       .nav-links { display: none; }
     }
-
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .fade-up { animation: fadeUp 0.6s ease both; }
     .delay-1 { animation-delay: 0.15s; }
     .delay-2 { animation-delay: 0.3s; }
     .delay-3 { animation-delay: 0.45s; }
   </style>
 </head>
-<body>
+
+<body class="lang-fr">
 
 <!-- NAV -->
 <nav>
   <a class="nav-name" href="#">Prénom Nom</a>
-  <ul class="nav-links">
-    <li><a href="#projets">Projets</a></li>
-    <li><a href="#illustrations">Illustrations</a></li>
-    <li><a href="#enseignement">Enseignement</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#projets"><span data-lang="fr">Projets</span><span data-lang="en">Projects</span></a></li>
+      <li><a href="#illustrations">Illustrations</a></li>
+      <li><a href="#enseignement"><span data-lang="fr">Enseignement</span><span data-lang="en">Teaching</span></a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
 <header>
   <div class="hero-grid">
     <div class="hero-text">
-      <p class="hero-subtitle fade-up">Ingénieur Biomédical</p>
+      <p class="hero-subtitle fade-up">
+        <span data-lang="fr">Ingénieur Biomédical</span>
+        <span data-lang="en">Biomedical Engineer</span>
+      </p>
       <h1 class="fade-up delay-1">Prénom <em>Nom</em></h1>
       <p class="hero-bio fade-up delay-2">
-        Ingénieur biomédical spécialisé en [ton domaine].
-        Passionné par l'interface entre la technologie médicale,
-        la recherche et la communication scientifique.
+        <span data-lang="fr">Ingénieur biomédical spécialisé en [ton domaine]. Passionné par l'interface entre la technologie médicale, la recherche et la communication scientifique.</span>
+        <span data-lang="en">Biomedical engineer specialized in [your field]. Passionate about the interface between medical technology, research, and scientific communication.</span>
       </p>
       <div class="hero-ctas fade-up delay-3">
-        <a href="assets/cv.pdf" class="btn btn-primary" target="_blank">Télécharger le CV</a>
-        <a href="#projets" class="btn btn-outline">Voir les projets</a>
+        <a href="assets/cv-fr.pdf" class="btn btn-primary" id="cv-hero-btn" target="_blank">
+          <span data-lang="fr">Télécharger le CV</span>
+          <span data-lang="en">Download Resume</span>
+        </a>
+        <a href="#projets" class="btn btn-outline">
+          <span data-lang="fr">Voir les projets</span>
+          <span data-lang="en">View projects</span>
+        </a>
       </div>
     </div>
     <div class="hero-visual fade-up delay-2">
       <div class="hero-stat-row">
         <div class="hero-stat">
           <div class="hero-stat-n">X</div>
-          <div class="hero-stat-l">Projets réalisés</div>
+          <div class="hero-stat-l"><span data-lang="fr">Projets</span><span data-lang="en">Projects</span></div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-n">X</div>
-          <div class="hero-stat-l">Publications</div>
+          <div class="hero-stat-l"><span data-lang="fr">Publications</span><span data-lang="en">Publications</span></div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-n">X</div>
@@ -397,65 +199,111 @@
         </div>
       </div>
       <div class="hero-tag-row">
-        <span class="tag">Dispositifs médicaux</span>
-        <span class="tag">Imagerie</span>
-        <span class="tag">Biomécanique</span>
-        <span class="tag">Communication scientifique</span>
-        <span class="tag">Enseignement</span>
+        <span class="tag"><span data-lang="fr">Dispositifs médicaux</span><span data-lang="en">Medical devices</span></span>
+        <span class="tag"><span data-lang="fr">Imagerie</span><span data-lang="en">Imaging</span></span>
+        <span class="tag"><span data-lang="fr">Biomécanique</span><span data-lang="en">Biomechanics</span></span>
+        <span class="tag"><span data-lang="fr">Communication scientifique</span><span data-lang="en">Science communication</span></span>
       </div>
     </div>
   </div>
 </header>
 
-<!-- PROJETS D'INGÉNIERIE -->
+<!-- PROJETS -->
 <section id="projets">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-label">Ingénierie</p>
-      <h2 class="section-title">Projets techniques</h2>
-      <p class="section-desc">Travaux d'ingénierie biomédicale, prototypes et études techniques.</p>
+      <p class="section-label"><span data-lang="fr">Ingénierie</span><span data-lang="en">Engineering</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Projets techniques</span>
+        <span data-lang="en">Technical projects</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">Travaux d'ingénierie biomédicale, prototypes et études techniques.</span>
+        <span data-lang="en">Biomedical engineering work, prototypes and technical studies.</span>
+      </p>
     </div>
     <div class="cards-grid">
 
-      <!-- CARTE PROJET 1 — duplique ce bloc pour ajouter un projet -->
+      <!-- ── CARTE 1
+           Rapport disponible en FR et EN → deux balises data-dl, le JS affiche la bonne
+      ── -->
       <div class="card">
         <div class="card-img">🔬</div>
-        <!-- Remplace le div ci-dessus par :
-        <img src="assets/images/projet1.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;"> -->
         <div class="card-body">
-          <p class="card-category">Dispositifs médicaux</p>
-          <h3 class="card-title">Titre du projet 1</h3>
-          <p class="card-desc">Courte description du projet — contexte, problème résolu, technologies utilisées. 2-3 phrases suffisent.</p>
+          <p class="card-category"><span data-lang="fr">Dispositifs médicaux</span><span data-lang="en">Medical devices</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Titre du projet 1</span>
+            <span data-lang="en">Project title 1</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Description en français — contexte, problème résolu, technologies utilisées.</span>
+            <span data-lang="en">Description in English — context, problem solved, technologies used.</span>
+          </p>
           <div class="card-links">
-            <a href="#" class="card-link">Rapport PDF</a>
-            <a href="#" class="card-link">GitHub</a>
+            <a href="assets/docs/rapport1-fr.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Rapport</span><span data-lang="en">Report</span>
+              <span class="dl-badge">FR</span>
+            </a>
+            <a href="assets/docs/rapport1-en.pdf" class="dl-btn" data-dl="en" target="_blank">
+              <span data-lang="fr">Rapport</span><span data-lang="en">Report</span>
+              <span class="dl-badge">EN</span>
+            </a>
+            <a href="https://github.com/ton-username/projet1" class="card-link" target="_blank">GitHub</a>
           </div>
         </div>
       </div>
 
-      <!-- CARTE PROJET 2 -->
+      <!-- ── CARTE 2
+           Article en ligne (même lien), poster uniquement en FR
+      ── -->
       <div class="card">
         <div class="card-img">🩻</div>
         <div class="card-body">
-          <p class="card-category">Imagerie médicale</p>
-          <h3 class="card-title">Titre du projet 2</h3>
-          <p class="card-desc">Courte description du projet — contexte, problème résolu, technologies utilisées.</p>
+          <p class="card-category"><span data-lang="fr">Imagerie médicale</span><span data-lang="en">Medical imaging</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Titre du projet 2</span>
+            <span data-lang="en">Project title 2</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Description en français.</span>
+            <span data-lang="en">Description in English.</span>
+          </p>
           <div class="card-links">
-            <a href="#" class="card-link">Voir l'article</a>
+            <a href="https://doi.org/xxx" class="card-link" target="_blank">
+              <span data-lang="fr">Voir l'article</span><span data-lang="en">View article</span>
+            </a>
+            <!-- Un seul fichier (FR uniquement) → toujours visible, badge FR affiché -->
+            <a href="assets/docs/poster2-fr.pdf" class="dl-btn" target="_blank">
+              Poster <span class="dl-badge">FR</span>
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- CARTE PROJET 3 -->
+      <!-- ── CARTE 3
+           Présentation disponible en FR et EN
+      ── -->
       <div class="card">
         <div class="card-img">⚙️</div>
         <div class="card-body">
-          <p class="card-category">Biomécanique</p>
-          <h3 class="card-title">Titre du projet 3</h3>
-          <p class="card-desc">Courte description du projet — contexte, problème résolu, technologies utilisées.</p>
+          <p class="card-category"><span data-lang="fr">Biomécanique</span><span data-lang="en">Biomechanics</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Titre du projet 3</span>
+            <span data-lang="en">Project title 3</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Description en français.</span>
+            <span data-lang="en">Description in English.</span>
+          </p>
           <div class="card-links">
-            <a href="#" class="card-link">Présentation</a>
-            <a href="#" class="card-link">Poster</a>
+            <a href="assets/docs/pres3-fr.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Présentation</span><span data-lang="en">Presentation</span>
+              <span class="dl-badge">FR</span>
+            </a>
+            <a href="assets/docs/pres3-en.pdf" class="dl-btn" data-dl="en" target="_blank">
+              <span data-lang="fr">Présentation</span><span data-lang="en">Presentation</span>
+              <span class="dl-badge">EN</span>
+            </a>
           </div>
         </div>
       </div>
@@ -464,48 +312,46 @@
   </div>
 </section>
 
-<!-- ILLUSTRATIONS & COMMUNICATION -->
+<!-- ILLUSTRATIONS -->
 <section id="illustrations" style="background: #fdfcf8;">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-label">Communication visuelle</p>
-      <h2 class="section-title">Illustrations & Communication</h2>
-      <p class="section-desc">Figures scientifiques, infographies médicales et supports de vulgarisation.</p>
+      <p class="section-label"><span data-lang="fr">Communication visuelle</span><span data-lang="en">Visual communication</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Illustrations & Communication</span>
+        <span data-lang="en">Illustrations & Communication</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">Figures scientifiques, infographies médicales et supports de vulgarisation.</span>
+        <span data-lang="en">Scientific figures, medical infographics and outreach materials.</span>
+      </p>
     </div>
     <div class="illus-grid">
-
-      <!-- ILLUSTRATION 1 — duplique pour en ajouter -->
       <div class="illus-item">
         <div class="illus-thumb">🧬</div>
         <!-- Remplace par : <img src="assets/images/illus1.png" style="width:100%;aspect-ratio:1/1;object-fit:cover;"> -->
-        <p class="illus-caption">Titre de l'illustration — contexte ou publication associée</p>
+        <p class="illus-caption"><span data-lang="fr">Titre — contexte ou publication</span><span data-lang="en">Title — context or publication</span></p>
       </div>
-
       <div class="illus-item">
         <div class="illus-thumb">🫀</div>
-        <p class="illus-caption">Titre de l'illustration 2</p>
+        <p class="illus-caption"><span data-lang="fr">Titre illustration 2</span><span data-lang="en">Illustration title 2</span></p>
       </div>
-
       <div class="illus-item">
         <div class="illus-thumb">🧠</div>
-        <p class="illus-caption">Titre de l'illustration 3</p>
+        <p class="illus-caption"><span data-lang="fr">Titre illustration 3</span><span data-lang="en">Illustration title 3</span></p>
       </div>
-
       <div class="illus-item">
         <div class="illus-thumb">📊</div>
-        <p class="illus-caption">Infographie — Titre</p>
+        <p class="illus-caption"><span data-lang="fr">Infographie — Titre</span><span data-lang="en">Infographic — Title</span></p>
       </div>
-
       <div class="illus-item">
         <div class="illus-thumb">🔬</div>
-        <p class="illus-caption">Figure scientifique — Titre</p>
+        <p class="illus-caption"><span data-lang="fr">Figure scientifique</span><span data-lang="en">Scientific figure</span></p>
       </div>
-
       <div class="illus-item">
         <div class="illus-thumb">💉</div>
-        <p class="illus-caption">Illustration médicale — Titre</p>
+        <p class="illus-caption"><span data-lang="fr">Illustration médicale</span><span data-lang="en">Medical illustration</span></p>
       </div>
-
     </div>
   </div>
 </section>
@@ -514,37 +360,52 @@
 <section id="enseignement">
   <div class="section-inner">
     <div class="section-header">
-      <p class="section-label">Enseignement & Médiation</p>
-      <h2 class="section-title">Activités pédagogiques</h2>
-      <p class="section-desc">Cours, ateliers, supports pédagogiques et activités de médiation scientifique.</p>
+      <p class="section-label"><span data-lang="fr">Enseignement & Médiation</span><span data-lang="en">Teaching & Outreach</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Activités pédagogiques</span>
+        <span data-lang="en">Teaching activities</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">Cours, ateliers, supports pédagogiques et médiation scientifique.</span>
+        <span data-lang="en">Courses, workshops, teaching materials and science outreach.</span>
+      </p>
     </div>
     <div class="teach-list">
 
-      <!-- ITEM ENSEIGNEMENT 1 — duplique pour en ajouter -->
       <div class="teach-item">
         <div class="teach-year">2024</div>
         <div>
-          <p class="teach-title">Titre du cours ou atelier</p>
-          <p class="teach-meta">Établissement ou contexte — Niveau (Bachelor / Master / Public)</p>
-          <p class="teach-desc">Description courte : thèmes abordés, format, nombre d'étudiants si pertinent. Tu peux ajouter un lien vers un support ou une ressource.</p>
+          <p class="teach-title"><span data-lang="fr">Titre du cours ou atelier</span><span data-lang="en">Course or workshop title</span></p>
+          <p class="teach-meta"><span data-lang="fr">Établissement — Niveau</span><span data-lang="en">Institution — Level</span></p>
+          <p class="teach-desc"><span data-lang="fr">Description courte : thèmes abordés, format, nombre d'étudiants.</span><span data-lang="en">Short description: topics covered, format, number of students.</span></p>
+          <div style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="assets/docs/cours1-fr.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Support de cours</span><span data-lang="en">Course material</span>
+              <span class="dl-badge">FR</span>
+            </a>
+            <a href="assets/docs/cours1-en.pdf" class="dl-btn" data-dl="en" target="_blank">
+              <span data-lang="fr">Support de cours</span><span data-lang="en">Course material</span>
+              <span class="dl-badge">EN</span>
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="teach-item">
         <div class="teach-year">2023</div>
         <div>
-          <p class="teach-title">Médiation scientifique — Titre</p>
-          <p class="teach-meta">Événement ou association — Public général</p>
-          <p class="teach-desc">Description de l'activité de vulgarisation ou communication scientifique réalisée.</p>
+          <p class="teach-title"><span data-lang="fr">Médiation scientifique — Titre</span><span data-lang="en">Science outreach — Title</span></p>
+          <p class="teach-meta"><span data-lang="fr">Événement ou association — Public général</span><span data-lang="en">Event or association — General public</span></p>
+          <p class="teach-desc"><span data-lang="fr">Description de l'activité réalisée.</span><span data-lang="en">Description of the activity carried out.</span></p>
         </div>
       </div>
 
       <div class="teach-item">
         <div class="teach-year">2022</div>
         <div>
-          <p class="teach-title">Autre activité pédagogique</p>
-          <p class="teach-meta">Contexte — Type</p>
-          <p class="teach-desc">Description courte de l'activité.</p>
+          <p class="teach-title"><span data-lang="fr">Autre activité pédagogique</span><span data-lang="en">Other teaching activity</span></p>
+          <p class="teach-meta"><span data-lang="fr">Contexte — Type</span><span data-lang="en">Context — Type</span></p>
+          <p class="teach-desc"><span data-lang="fr">Description courte.</span><span data-lang="en">Short description.</span></p>
         </div>
       </div>
 
@@ -558,37 +419,76 @@
     <div class="contact-grid">
       <div>
         <p class="section-label">Contact</p>
-        <h2 class="section-title">Restons en contact</h2>
-        <p class="section-desc" style="margin-top: 16px;">N'hésitez pas à me contacter pour toute opportunité professionnelle, collaboration ou question.</p>
+        <h2 class="section-title"><span data-lang="fr">Restons en contact</span><span data-lang="en">Get in touch</span></h2>
+        <p class="section-desc" style="margin-top: 16px;">
+          <span data-lang="fr">N'hésitez pas à me contacter pour toute opportunité professionnelle, collaboration ou question.</span>
+          <span data-lang="en">Feel free to reach out for any professional opportunity, collaboration or question.</span>
+        </p>
         <div class="contact-links" style="margin-top: 32px;">
-          <a href="mailto:ton@email.com" class="contact-link">
-            <span class="contact-icon">✉</span>
-            ton@email.com
-          </a>
-          <a href="https://linkedin.com/in/ton-profil" class="contact-link" target="_blank">
-            <span class="contact-icon">in</span>
-            linkedin.com/in/ton-profil
-          </a>
-          <a href="https://github.com/ton-username" class="contact-link" target="_blank">
-            <span class="contact-icon">gh</span>
-            github.com/ton-username
-          </a>
+          <a href="mailto:ton@email.com" class="contact-link"><span class="contact-icon">✉</span> ton@email.com</a>
+          <a href="https://linkedin.com/in/ton-profil" class="contact-link" target="_blank"><span class="contact-icon">in</span> linkedin.com/in/ton-profil</a>
+          <a href="https://github.com/ton-username" class="contact-link" target="_blank"><span class="contact-icon">gh</span> github.com/ton-username</a>
         </div>
       </div>
       <div class="cv-block">
         <p class="section-label" style="color: #6b9fd4;">Curriculum vitae</p>
-        <p>Mon CV complet est disponible en téléchargement. Il détaille mon parcours académique, mes expériences professionnelles et mes compétences techniques.</p>
-        <a href="assets/cv.pdf" class="btn btn-outline" style="color:#fff; border-color: rgba(255,255,255,0.2);" target="_blank">
-          Télécharger le CV (PDF)
-        </a>
+        <p>
+          <span data-lang="fr">Mon CV complet est disponible en téléchargement en français et en anglais.</span>
+          <span data-lang="en">My full resume is available for download in French and English.</span>
+        </p>
+        <div class="cv-dl-row">
+          <a href="assets/cv-fr.pdf" class="cv-dl-btn" target="_blank">CV <span class="cv-dl-badge">FR</span></a>
+          <a href="assets/cv-en.pdf" class="cv-dl-btn" target="_blank">Resume <span class="cv-dl-badge">EN</span></a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 Prénom Nom — Ingénieur Biomédical</p>
+  <p>© 2025 Prénom Nom — <span data-lang="fr">Ingénieur Biomédical</span><span data-lang="en">Biomedical Engineer</span></p>
 </footer>
 
+<script>
+// ── Chemins des CV (modifie si tu n'as qu'une seule version) ──
+const cvFiles = { fr: 'assets/cv-fr.pdf', en: 'assets/cv-en.pdf' };
+
+function setLang(lang) {
+  // 1. Bascule la classe sur <body>
+  document.body.classList.remove('lang-fr', 'lang-en');
+  document.body.classList.add('lang-' + lang);
+
+  // 2. Boutons actifs
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  // 3. Attribut lang (SEO + accessibilité)
+  document.documentElement.lang = lang;
+
+  // 4. Lien CV du héro
+  document.getElementById('cv-hero-btn').href = cvFiles[lang];
+
+  // 5. Boutons de téléchargement bilingues ─────────────────────────────────
+  //    Règle : si dans un même conteneur il y a un bouton data-dl="fr" ET
+  //    un bouton data-dl="en", on n'affiche que celui qui correspond à la
+  //    langue active. Si un seul existe (document dans une seule langue),
+  //    il reste toujours visible.
+  document.querySelectorAll('[data-dl]').forEach(btn => {
+    const parent = btn.parentElement;
+    const hasBoth = parent.querySelector('[data-dl="fr"]') && parent.querySelector('[data-dl="en"]');
+    btn.style.display = hasBoth ? (btn.getAttribute('data-dl') === lang ? 'inline-flex' : 'none') : 'inline-flex';
+  });
+
+  // 6. Sauvegarde préférence
+  localStorage.setItem('lang', lang);
+}
+
+// Charge la langue sauvegardée, ou détecte celle du navigateur
+(function() {
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('fr') ? 'fr' : 'en';
+  setLang(saved || browser);
+})();
+</script>
 </body>
 </html>
