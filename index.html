@@ -1,0 +1,1389 @@
+/* File definition */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vincent Morier-Genoud — Biomedical Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  
+  /* CSS */
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a1a; --ink-muted: #6b6b6b;
+      --bg: #f7f5f0; --bg-card: #ffffff; --accent: #8297a8;
+      --accent-light: #e8eef8; --border: #e2ddd6;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.7; }
+
+    /* ── SYSTÈME BILINGUE ── */
+    [data-lang] { display: none; }
+    .lang-fr [data-lang="fr"] { display: revert; }
+    .lang-en [data-lang="en"] { display: revert; }
+    span[data-lang] { display: none; }
+    .lang-fr span[data-lang="fr"] { display: inline; }
+    .lang-en span[data-lang="en"] { display: inline; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,245,240,0.93); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 56px;
+    }
+    .nav-name { font-family: var(--serif); font-size: 17px; color: var(--ink); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 28px; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .lang-toggle { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .lang-btn { padding: 5px 11px; cursor: pointer; border: none; background: transparent; color: var(--ink-muted); font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.05em; transition: all 0.15s; }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+    .lang-btn:not(.active):hover { background: var(--accent-light); color: var(--accent); }
+    .lang-sep { width: 1px; background: var(--border); height: 28px; }
+
+    /* HERO */
+    header { min-height: 100vh; display: flex; align-items: center; padding: 80px 5vw 60px; border-bottom: 1px solid var(--border); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; width: 100%; margin: 0 auto; align-items: start }
+    .hero-text h1 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; margin-bottom: 36px; }
+    .hero-text h1 em { font-style: italic; color: var(--accent); }
+    .hero-subtitle { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); margin-bottom: 24px; font-weight: 500; }
+    .hero-bio { font-size: 15px; color: var(--ink-muted); margin-bottom: 36px; line-height: 1.8; text-align: justify; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; letter-spacing: 0.02em; }
+    .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: #8297a8; }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+     #annex-menu a:hover { background: var(--accent-light); }
+    .hero-visual { display: flex; flex-direction: column; gap: 16px; }
+    .hero-stat-row { display: flex; gap: 12px; }
+    .hero-stat { flex: 1; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; }
+    .hero-stat-n { font-family: var(--serif); font-size: 2rem; color: var(--accent); line-height: 1; }
+    .hero-stat-l { font-size: 12px; color: var(--ink-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .hero-tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { font-size: 12px; padding: 5px 12px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-weight: 500; }
+
+    /* Variable GRID */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 28px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+
+    /* SECTIONS */
+    section { padding: 100px 5vw; border-bottom: 1px solid var(--border); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 56px; }
+    .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 500; margin-bottom: 10px; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); line-height: 1.15; }
+    .section-desc { margin-top: 12px; color: var(--ink-muted); font-size: 15px; text-align: justify;}
+
+    /* CARDS */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;}
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+    .card-img { width: 100%; aspect-ratio: 16/9; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border-bottom: 1px solid var(--border); cursor: default;}
+    .card-body { padding: 24px;  display: flex;flex-direction: column;flex-grow: 1;}
+    .card-category { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+    .card-title { font-family: var(--serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 10px; line-height: 1.3; }
+    .card-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 16px;}
+    .card-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto;padding-top: 16px;}
+    .card-link { font-size: 12px; font-weight: 500; color: var(--accent); text-decoration: none; border: 1px solid var(--accent-light); padding: 5px 12px; border-radius: 4px; transition: background 0.2s; }
+    .card-link:hover { background: var(--accent-light); }
+
+    /* BOUTON TÉLÉCHARGEMENT BILINGUE */
+    .dl-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--accent); border: 1px solid var(--accent-light); padding: 5px 12px; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+    .dl-btn:hover { background: var(--accent-light); }
+    .dl-badge { font-size: 10px; background: var(--accent); color: #fff; padding: 1px 6px; border-radius: 3px; letter-spacing: 0.05em; }
+
+    /* ILLUSTRATIONS */
+    .illus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+    .illus-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+    .illus-item:hover { transform: scale(1.02); }
+    .illus-thumb { width: 100%; aspect-ratio: 1/1; background: var(--accent-light); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
+    .illus-caption { padding: 12px 14px; font-size: 13px; color: var(--ink-muted); }
+
+    /* ENSEIGNEMENT */
+    .teach-list { display: flex; flex-direction: column; gap: 20px; }
+    .teach-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; align-items: start; }
+    .teach-year { font-family: var(--serif); font-size: 1.4rem; color: var(--accent); line-height: 1; padding-top: 4px; }
+    .teach-title { font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+    .teach-meta { font-size: 13px; color: var(--ink-muted); margin-bottom: 8px; }
+    .teach-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
+    .teach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+    .teach-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .teach-card-thumb { width: 100%; aspect-ratio: 16/9; background: var(--accent-light); cursor: default; overflow: hidden; }
+    .teach-card-thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .teach-card-body { padding: 24px; }
+    .teach-card-title { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 10px; }
+    .teach-card-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.7; margin-bottom: 16px; }
+    .teach-tags { display: flex; flex-wrap: wrap; font-size: 10px; gap: 8px; padding: 8px 12px 12px 12px; margin-bottom: 8px;margin-top: 0;}
+    .teach-tag { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-weight: 500; }
+
+    /* CONTACT */
+    #contact { background: var(--ink); border-bottom: none; }
+    #contact .section-label { color: #8297a8; }
+    #contact .section-title { color: #fff; }
+    #contact .section-desc { color: #9a9a9a; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+    .contact-link { display: flex; align-items: center; gap: 12px; color: #ccc; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .contact-link:hover { color: #fff; }
+    .contact-icon { width: 36px; height: 36px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+    .cv-block { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 32px; }
+    .cv-block p { color: #9a9a9a; font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
+    .cv-dl-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .cv-dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 4px; font-size: 13px; font-weight: 500; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); color: #fff; transition: background 0.2s; }
+    .cv-dl-btn:hover { background: rgba(255,255,255,0.1); }
+    .cv-dl-badge { font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 3px; }
+
+    footer { background: var(--ink); padding: 24px 5vw; text-align: center; font-size: 12px; color: #555; border-top: 1px solid #2a2a2a; }
+
+    @media (max-width: 768px) {
+      .hero-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .teach-item { grid-template-columns: 1fr; gap: 8px; }
+      .nav-links { display: none; }
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+  </style>
+
+/* HTML */
+</head>
+<body class="lang-fr">
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; cursor:default;" onclick="handleLightboxClick(event)">
+  <button onclick="event.stopPropagation(); slideLightbox(-1)" style="position:absolute; left:24px; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:24px; padding:12px 16px; border-radius:6px; cursor:pointer;">‹</button>
+  <img id="lightbox-img" src="" style="max-width:85vw; max-height:85vh; border-radius:8px; object-fit:contain;">
+  <video id="lightbox-video" controls muted style="display:none; width:85vw; max-width:960px; max-height:85vh; border-radius:8px; background:#000;">
+    <source id="lightbox-video-src" src="" type="video/mp4">
+  </video>
+  <button onclick="event.stopPropagation(); slideLightbox(1)" style="position:absolute; right:24px; background:rgba(255,255,255,0.15); border:none; color:#fff; font-size:24px; padding:12px 16px; border-radius:6px; cursor:pointer;">›</button>
+  <div id="lightbox-dots" style="position:absolute; bottom:20px; display:flex; gap:8px;"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#">Vincent Morier-Genoud</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#biomedical"><span data-lang="fr">Biomédical</span><span data-lang="en">Biomedical</span></a></li>
+      <li><a href="#mobility"><span data-lang="fr">Mobilité réduite</span><span data-lang="en">Reduced mobility</span></a></li>
+      <li><a href="#iot"><span data-lang="fr">Acquisition de données & IoT</span><span data-lang="en">Data Acquisition & IoT</span></a></li>
+      <li><a href="#others"><span data-lang="fr">Engagements et créations</span><span data-lang="en">Commitments and creations</span></a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <p class="hero-subtitle fade-up">
+        <span data-lang="fr">Ingénieur Biomédical</span>
+        <span data-lang="en">Biomedical Engineer</span>
+      </p>
+      <h1 class="fade-up delay-1">Vincent <em>Morier-Genoud</em></h1>
+      <p class="hero-bio fade-up delay-2">
+        <span data-lang="fr">Ingénieur biomédical, j'ai construit mon parcours en accumulant des passions au fil de mes expériences. Parti de l'ingénierie automobile, j'y ai découvert le goût pour l'acquisition, le traitement et la visualisation de données. Ma participation à l'ouverture d'un laboratoire dédié à la mobilité réduite m'a permis de me rapprocher de projets au service des autres. J'y ai développé des compétences clés en gestion de projet et communication, tout en découvrant une passion pour l'ingénierie biomédicale, que j'ai approfondie avec un master en parallèle de ma profession.</span>
+        <span data-lang="en">Biomedical engineer, I have built my career by developing new passions through each experience. Starting in automotive engineering, I discovered my interest in data acquisition, processing and visualisation. My involvement in launching a laboratory dedicated to reduced mobility brought me closer to projects at the service of others. There, I developed key skills in project management and communication, while discovering a passion for biomedical engineering, which I deepened through a master's degree alongside my profession.</span>
+      </p>
+      <div class="hero-ctas" style="flex-direction:column; align-items:flex-start; gap:8px;">
+        <p style="font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-muted); margin-bottom:4px;">
+          <span data-lang="fr">Voir les projets</span>
+          <span data-lang="en">Browse projects</span>
+        </p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="#biomedical" class="btn btn-outline">
+            <span data-lang="fr">Biomédical</span>
+            <span data-lang="en">Biomedical</span>
+          </a>
+          <a href="#mobility" class="btn btn-outline">
+            <span data-lang="fr">Mobilité réduite</span>
+            <span data-lang="en">Reduced mobility</span>
+          </a>
+          <a href="#iot" class="btn btn-outline">
+            <span data-lang="fr">Acquisition de données & IoT</span>
+            <span data-lang="en">Data Acquisition & IoT</span>
+          </a>
+          <div style="position:relative; display:inline-block;">
+            <button class="btn btn-outline" onclick="toggleAnnexMenu(event)" id="annex-btn">
+              <span data-lang="fr">Engagements et créations</span>
+              <span data-lang="en">Commitments and creations</span>
+              <span style="color:var(--accent); font-weight:600; margin-left:6px;">▴</span>
+            </button>
+            <div id="annex-menu" style="display:none; position:absolute; bottom:calc(100% + 8px); left:0; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:8px; min-width:220px; box-shadow:0 8px 30px rgba(0,0,0,0.1); z-index:200;">
+              <a href="#others-pedagogie" onclick="closeAnnexMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-radius:6px; text-decoration:none; color:var(--ink); font-size:13px; transition:background 0.15s;">
+                <span data-lang="fr">Pédagogie</span>
+                <span data-lang="en">Teaching</span>
+              </a>
+              <a href="#others-illustrations" onclick="closeAnnexMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-radius:6px; text-decoration:none; color:var(--ink); font-size:13px; transition:background 0.15s;">
+                <span data-lang="fr">Illustrations</span>
+                <span data-lang="en">Illustrations</span>
+              </a>
+              <a href="#others-audio" onclick="closeAnnexMenu()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-radius:6px; text-decoration:none; color:var(--ink); font-size:13px; transition:background 0.15s;">
+                <span data-lang="fr">Développement audio</span>
+                <span data-lang="en">Audio development</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/images/hero/sci_lab.JPEG" alt="Vincent Morier-Genoud" style="width:100%; border-radius:12px; object-fit:cover; aspect-ratio:4/5; border:1px solid var(--border);">
+    </div>
+    </div>
+  </div>
+</header>
+
+<!-- ──────────────    Biomedical Section   ────────────── -->
+<section id="biomedical">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-label"><span data-lang="fr">Ingénierie</span><span data-lang="en">Engineering</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Biomédical</span>
+        <span data-lang="en">Biomedical</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">Formé à l'ingénierie biomédicale à l'université de Berne de 2022 à 2024, j'ai eu la chance d'effectuer des projets dans plusieurs laboratoires de l'ARTORG Center et des stages d'observation à l'Inselspital (cardiologie, chirurgie orthopédique). Mon attrait pour la mécanique m'a naturellement orienté vers le major biomécanique, avec un intérêt particulier pour les technologies cardiovasculaires. Mon travail de master, réalisé au laboratoire d'hémodynamique et de technologie cardiovasculaire de l'EPFL, a obtenu la note maximale, donné lieu à une présentation à la conférence internationale ARTERY25 à Valence, et initié l'écriture d'un article scientifique actuellement en cours de publication.</span>
+        <span data-lang="en">Trained in biomedical engineering at the University of Bern from 2022 to 2024, I had the opportunity to carry out projects in several ARTORG Center laboratories and complete observation internships at the Inselspital (cardiology, orthopaedic surgery). My interest in mechanics naturally led me toward the biomechanics major, with a particular focus on cardiovascular technologies. My master's thesis, conducted at the EPFL Hemodynamics and Cardiovascular Technology Laboratory, received the highest grade, led to a presentation at the international ARTERY25 conference in Valencia, and initiated a scientific article currently under publication.</span>
+      </p>
+    </div>
+    <div class="cards-grid">
+      <!-- ── CARTE 1 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/msc_illu/msc_project_1.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Data science clinique</span>
+            <span data-lang="en">Clinical data science</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Création d'un dataset hémodynamique et traitement de signaux en soins intensifs</span>
+            <span data-lang="en">Hemodynamic Dataset creation & Signal Processing in Intensive Care</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Construction d'un dataset hémodynamique original à partir de MIMIC-III, base de données relationnelle clinique développée par le MIT, regroupant données démographiques et signaux physiologiques pour la prédiction du débit cardiaque. Un algorithme de sélection, traitement et contrôle qualité des signaux a été développé pour automatiser et garantir la fiabilité du pipeline de génération. Réalisé dans le cadre de ma thèse de master à l'EPFL.</span>
+            <span data-lang="en">Construction of an original hemodynamic dataset from MIMIC-III, a clinical relational database developed by MIT, combining demographic data and physiological signals for cardiac output prediction. A dedicated algorithm for signal selection, processing, and quality control was developed to automate and ensure the reliability of the generation pipeline. Completed as part of my Master's thesis at EPFL.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">NumPy</span>
+            <span class="teach-tag">Pandas</span>
+            <span class="teach-tag">SciPy</span>
+            <span class="teach-tag" data-lang="fr">Base de données relationnelle</span>
+            <span class="teach-tag" data-lang="en">Relational Database</span>
+            <span class="teach-tag" data-lang="fr">Données anonymisées</span>
+            <span class="teach-tag" data-lang="en">Anonymised Data</span>
+            <span class="teach-tag">SQL · BigQuery</span>
+            <span class="teach-tag">GitHub</span>
+            <span class="teach-tag" data-lang="fr">HPC</span>
+            <span class="teach-tag" data-lang="en">HPC</span>
+            <span class="teach-tag">GCP</span>
+            <span class="teach-tag" data-lang="fr">Traitement du signal</span>
+            <span class="teach-tag" data-lang="en">Signal Processing</span>
+            <span class="teach-tag" data-lang="fr">Développement algorithmique</span>
+            <span class="teach-tag" data-lang="en">Algorithm Development</span>
+          </div>
+          <div class="card-links">
+            <a href="assets/docs/MORIER-GENOUD_ARTERY25_POSTER.pdf" class="dl-btn" data-dl="en" target="_blank">
+              <span data-lang="fr">Poster de conférence</span>
+              <span data-lang="en">Conference poster</span>
+              <span class="dl-badge">EN</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 2 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/msc_illu/msc_project_2.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">IA & machine learning clinique</span>
+            <span data-lang="en">Clinical AI & machine learning</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Modélisation CNN/RNN pour la prédiction du débit cardiac</span>
+            <span data-lang="en">CNN/RNN modelling for cardiac output prediction</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Développement d'un framework de deep learning pour la conception, le tuning et l'entraînement de modèles CNN et RNN (LSTM, GRU) appliqués à la prédiction du débit cardiaque. Le framework intègre validation croisée, tuning d'hyperparamètres et génération automatisée des résultats. Ce travail a conclu ma thèse de master à l'EPFL et donné lieu à un article scientifique en cours de parution.</span>
+            <span data-lang="en">Development of a deep learning framework for designing, tuning, and training custom CNN and RNN models (LSTM, GRU) applied to cardiac output prediction. The framework integrates cross-validation, hyperparameter tuning, and automated result generation. This work concluded my Master's thesis at EPFL and resulted in a scientific article currently under review.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">TensorFlow/Keras</span>
+            <span class="teach-tag">scikit-learn</span>
+            <span class="teach-tag">CNN</span>
+            <span class="teach-tag">RNN · LSTM · GRU</span>
+            <span class="teach-tag">GitHub</span>
+            <span class="teach-tag" data-lang="fr">Rédaction scientifique</span>
+            <span class="teach-tag" data-lang="en">Scientific Writing</span>
+        </div>
+          <div class="card-links">
+            <a href="assets/docs/one_page_summary_mt.pdf" class="dl-btn" target="_blank">
+              <span data-lang="fr">Abstract du projet</span>
+              <span data-lang="en">Project abstract</span>
+              <span class="dl-badge">EN</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 3 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/bme/microscale.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Métamatériaux & fabrication avancée</span>
+            <span data-lang="en">Metamaterials & advanced fabrication</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Fabrication par lithographie et caractérisation mécanique de métamatériaux polymères</span>
+            <span data-lang="en">Lithography fabrication and mechanical characterisation of polymer metamaterials</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Fabrication d'un échantillon de métamatériau en polymère IP-S par lithographie à écriture directe par laser (DLW) en salle blanche, suivi d'une caractérisation mécanique par nanoindentation et visualisation par SEM. Une analyse micro-CT a permis de reconstruire la structure 3D et d'estimer le module de Young à partir de la densité relative. Un pipeline d'analyse d'image a ensuite été développé pour le contrôle qualité de l'épaisseur des parois via segmentation et calcul d'épaisseur locale.</span>
+            <span data-lang="en">Fabrication of an IP-S polymer metamaterial sample via direct laser writing (DLW) lithography in cleanroom conditions, followed by mechanical characterization through nanoindentation and SEM visualization. Micro-CT analysis enabled 3D structure reconstruction and Young's modulus estimation from relative density. An image analysis pipeline was then developed for wall thickness quality control using segmentation and local thickness computation.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Salle blanche</span>
+            <span class="teach-tag" data-lang="en">Cleanroom</span>
+            <span class="teach-tag">Nanoindentation</span>
+            <span class="teach-tag">SEM</span>
+            <span class="teach-tag">Micro-CT</span>
+            <span class="teach-tag" data-lang="fr">Polymérisation par photons</span>
+            <span class="teach-tag" data-lang="en">Single-photon Polymerisation</span>
+            <span class="teach-tag">Fiji</span>
+            <span class="teach-tag" data-lang="fr">Algorithme d'Otsu</span>
+            <span class="teach-tag" data-lang="en">Otsu Algorithm</span>
+            <span class="teach-tag" data-lang="fr">Analyse d'image</span>
+            <span class="teach-tag" data-lang="en">Image Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 4 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/bme/vegf.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Microfluidique & organes sur puce</span>
+            <span data-lang="en">Microfluidics & organ-on-chip</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Fabrication et test de perméabilité d'un vaisseau sur puce en PDMS</span>
+            <span data-lang="en">Fabrication and permeability assay of a single-vessel-on-chip in PDMS</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Fabrication de puces microfluidiques en PDMS par soft lithographie, développement d'un vaisseau biologique à partir de cellules HUVEC, et test de perméabilité sous microscope à fluorescence comparant deux conditions de croissance : EGM2 seul et milieu enrichi en VEGF.</span>
+            <span data-lang="en">Fabrication of PDMS microfluidic chips via soft lithography, development of a biological vessel from HUVEC cells, and fluorescence microscopy permeability assay comparing two growth conditions: EGM2 alone and VEGF-supplemented medium.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Wet lab</span>
+            <span class="teach-tag">PDMS</span>
+            <span class="teach-tag">HUVEC</span>
+            <span class="teach-tag">Soft Lithography</span>
+            <span class="teach-tag" data-lang="fr">Microscopie à fluorescence</span>
+            <span class="teach-tag" data-lang="en">Fluorescence Microscopy</span>
+            <span class="teach-tag">Fiji</span>
+            <span class="teach-tag" data-lang="fr">Biomicrofluidique</span>
+            <span class="teach-tag" data-lang="en">Biomicrofluidics</span>
+          </div>
+        </div>
+      </div>  
+
+      <!-- ── CARTE 5 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/bme/retine.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Biomécanique & modélisation</span>
+            <span data-lang="en">Biomechanics & modelling</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Caractérisation viscoélastique de la cornée porcine par nanoindentation et éléments finis</span>
+            <span data-lang="en">Viscoelastic characterisation of porcine cornea by nanoindentation and finite element modelling</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Caractérisation expérimentale et numérique de la cornée porcine par nanoindentation. Le protocole couvre la préparation et l'excision de l'échantillon, la mesure des propriétés viscoélastiques du tissu, puis la modélisation par éléments finis sous Abaqus. Plusieurs modèles ont été développés et optimisés via un script Python, et validés par comparaison avec la solution analytique de Hertz.</span>
+            <span data-lang="en">Experimental and numerical characterization of porcine cornea through nanoindentation. The protocol covers sample preparation and excision, viscoelastic tissue property measurement, and finite element modelling in Abaqus. Several models were developed and optimized via a Python script, then validated against the Hertz analytical solution.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Abaqus</span>
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">Nanoindentation</span>
+            <span class="teach-tag" data-lang="fr">Éléments finis (FEM)</span>
+            <span class="teach-tag" data-lang="en">Finite Element Method (FEM)</span>
+            <span class="teach-tag" data-lang="fr">Modèle viscoélastique</span>
+            <span class="teach-tag" data-lang="en">Viscoelastic Modelling</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 6 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/bme/gait.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Biomécanique du mouvement</span><span data-lang="en">Movement Biomechanics</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Analyse cinématique et dynamique inverse d'un mouvement de squat</span>
+            <span data-lang="en">Inverse kinematics and dynamics analysis of a squat movement</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Implémentation sous MATLAB d'un pipeline complet d'analyse biomécanique d'un squat : calcul de la flexion du genou par cinématique inverse et du moment articulaire par dynamique inverse, validés contre le logiciel VICON.</span>
+            <span data-lang="en">MATLAB implementation of a full biomechanical analysis pipeline for squat movement: knee flexion calculation via inverse kinematics and joint moment via inverse dynamics, validated against VICON software.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Motion capture</span>
+            <span class="teach-tag">MATLAB</span>
+            <span class="teach-tag" data-lang="fr">Anthropométrie</span>
+            <span class="teach-tag" data-lang="en">Anthropometry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ──────────────    Reduced Mobility Section   ──────────────  -->
+<section id="mobility">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-label"><span data-lang="fr">Ingénierie</span><span data-lang="en">Engineering</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Développement de la mobilité réduite</span>
+        <span data-lang="en">Reduced mobility development</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">La participation à l'ouverture du SCI-Mobility Lab, laboratoire dédié au développement de la mobilité réduite à l'interface entre l'ingénierie mécanique et la réhabilitation, a été une expérience fondatrice de mon parcours. J'y ai tenu des rôles variés (acquisition de l'instrumentation, recherche de fonds, gestion de projets) en étant responsable du suivi terrain et du reporting à ma hiérarchie. Ce laboratoire pluridisciplinaire, réunissant ingénieurs, chercheurs en réhabilitation et physiothérapeutes, m'a appris à adapter ma communication à des interlocuteurs très différents. J'y ai également développé des partenariats externes durables, et assuré la communication numérique du laboratoire à travers illustrations, images et vidéos.</span>
+        <span data-lang="en">My involvement in launching the SCI-Mobility Lab, a laboratory dedicated to reduced mobility at the intersection of mechanical engineering and rehabilitation, was a defining experience in my career. I held varied roles (equipment acquisition, fundraising and project management) while being responsible for on-site follow-up and reporting to management. This multidisciplinary environment, bringing together engineers, rehabilitation researchers and physiotherapists, taught me to adapt my communication to very different audiences. I also developed lasting external partnerships, and managed the laboratory's digital communication through illustrations, images and outreach videos.</span>
+      </p>
+    </div>
+    <div class="cards-grid">
+
+      <!-- ── CARTE 1 ── -->
+      <div class="card">
+        <div class="card-img">
+          <video src="assets/images/security_antrieb/compa_vid.mp4" style="width:100%;height:100%;object-fit:cover;" loop muted autoplay playsinline></video>
+        </div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Tests & évaluation</span>
+            <span data-lang="en">Testing & evaluation</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Crash-tests et évaluation comparative de systèmes d'entraînement électrique pour fauteuils roulants</span>
+            <span data-lang="en">Crash-tests and comparative evaluation of electric drive systems for manual wheelchairs</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Gestion complète d'un projet d'évaluation des risques dynamiques de systèmes de traction électrique couplables à des fauteuils roulants manuels. Conception et réalisation de crash tests et de tests de stabilité au basculement, puis d'un protocole de tests sur piste comparant trois produits, dans le respect des normes ISO 7176. Tests utilisateurs menés avec des personnes en situation de handicap pour une évaluation orientée usage. Rédaction, illustration et production intégrale d'un article publié en français, anglais et allemand dans une revue spécialisée.</span>
+            <span data-lang="en">Full management of a dynamic risk assessment project for electric propulsion systems attachable to manual wheelchairs. Design and execution of crash tests and tip-over stability tests, followed by a track testing protocol comparing three products, in compliance with ISO 7176 standards. User testing conducted with people with disabilities for a user-centered evaluation. Full authorship of an article published in French, English, and German in a specialized journal, including writing, illustration, and testing.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Gestion de projet</span>
+            <span class="teach-tag" data-lang="en">Project Management</span>
+            <span class="teach-tag" data-lang="fr">Analyse de risques</span>
+            <span class="teach-tag" data-lang="en">Risk Analysis</span>
+            <span class="teach-tag" data-lang="fr">Recherche de fonds</span>
+            <span class="teach-tag" data-lang="en">Fundraising</span>
+            <span class="teach-tag">ISO 7176</span>
+            <span class="teach-tag">Crash-tests</span>
+            <span class="teach-tag" data-lang="fr">Tests dynamiques</span>
+            <span class="teach-tag" data-lang="en">Dynamic Testing</span>
+            <span class="teach-tag" data-lang="fr">Rédaction scientifique</span>
+            <span class="teach-tag" data-lang="en">Scientific Writing</span>
+            <span class="teach-tag" data-lang="fr">Conception inclusive</span>
+            <span class="teach-tag" data-lang="en">Inclusive Design</span>
+          </div>
+          <div class="card-links">
+            <a href="assets/docs/compartif_fr.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Rapport</span><span data-lang="en">Report</span>
+              <span class="dl-badge">FR</span>
+            </a>
+            <a href="assets/docs/comparative_en.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Rapport</span><span data-lang="en">Report</span>
+              <span class="dl-badge">EN</span>
+            </a>
+            <a href="assets/docs/comparatif_de.pdf" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Rapport</span><span data-lang="en">Report</span>
+              <span class="dl-badge">DE</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 2 ── -->
+      <div class="card">
+        
+        <div class="card-img"><img src="assets/images/spinne/spinne3.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Etude de faisabilité</span><span data-lang="en">Feasibility study</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Développement d'un prototype de fauteuil roulant à compensation des forces du tronc</span>
+            <span data-lang="en">Development of a trunk force compensation wheelchair prototype</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Étude exploratoire et analyse de faisabilité pour un concept de fauteuil roulant à quatre bras indépendants, conçu pour compenser les forces sur le tronc et adapter dynamiquement la position du siège. En charge de la recherche de fonds, de la révision du concept mécanique, de l'analyse de risques et de la recherche de partenaires industriels. Revue approfondie de la littérature et des brevets pour affiner le positionnement du projet. À mon initiative, deux personnes en situation de handicap ont été intégrées à l'équipe pour garantir une approche orientée besoins réels : conception et conduite d'entretiens et d'un questionnaire ciblé ayant permis de collecter les retours de 30 participants concernés.</span>
+            <span data-lang="en">Exploratory research and feasibility study for a four-independent-arm wheelchair concept designed to compensate trunk forces and dynamically adapt seat position. Responsibilities included fundraising, mechanical concept revision, risk analysis, and industrial partner outreach. In-depth literature and patent review to refine project positioning. On my initiative, two people with disabilities were integrated into the team to ensure a needs-driven approach: design and execution of interviews and a targeted questionnaire collecting responses from 30 concerned participants.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Gestion de projet</span>
+            <span class="teach-tag" data-lang="en">Project Management</span>
+            <span class="teach-tag" data-lang="fr">Analyse de risques</span>
+            <span class="teach-tag" data-lang="en">Risk Analysis</span>
+            <span class="teach-tag" data-lang="fr">Recherche de fonds</span>
+            <span class="teach-tag" data-lang="en">Fundraising</span>
+            <span class="teach-tag" data-lang="fr">Analyse de faisabilité</span>
+            <span class="teach-tag" data-lang="fr">Conception inclusive</span>
+            <span class="teach-tag" data-lang="en">Inclusive Design</span>
+          </div>
+                    <div class="card-links">
+            <a href="https://mtd.de/der-e-rollstuhl-ganz-neu-gedacht/" class="dl-btn" data-dl="fr" target="_blank">
+              <span data-lang="fr">Presse spécialisée</span><span data-lang="en">Technical press</span>
+              <span class="dl-badge">DE</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 3 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/torsion_wc/wc_bench.mp4" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Conception mécanique</span><span data-lang="en">Mechanical design</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Conception d'un banc de test pour mesurer la rigidité des châssis de chaise roulante</span>
+            <span data-lang="en">Design of a test bench to measure the rigidity of wheelchair frames</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Conception, validation et construction d'un banc de test pour caractériser la rigidité de châssis de fauteuils roulants manuels. Analyse des forces et torsions du cadre par jauges de contrainte sur les plans frontal et transversal, permettant une mesure manuelle visuelle de la torsion. Supervision de l'intégration d'un système de détection automatique via Raspberry Pi, développé par des étudiants.</span>
+            <span data-lang="en">Design, validation, and construction of a test bench to characterize the stiffness of manual wheelchair frames. Analysis of frame forces and torsion using strain gauges on frontal and transversal planes, enabling manual visual torsion measurement. Supervision of the integration of an automated detection system via Raspberry Pi, developed by students.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Conception mécanique</span>
+            <span class="teach-tag" data-lang="en">Mechanical Design</span>
+            <span class="teach-tag">Siemens NX</span>
+            <span class="teach-tag" data-lang="fr">Jauge de contrainte</span>
+            <span class="teach-tag" data-lang="en">Strain Gauge</span>
+            <span class="teach-tag" data-lang="fr">Banc de test</span>
+            <span class="teach-tag" data-lang="en">Test Bench</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 4 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/dummy_sci/dummy_grey.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Conception mécanique</span><span data-lang="en">Mechanical design</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Développement d'un mannequin de test pour chaise roulante</span>
+            <span data-lang="en">Development of a wheelchair test dummy</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Conception et modélisation CAD d'un mannequin de test pour fauteuils roulants, conforme aux normes ISO 7176. Le mannequin intègre des compartiments modulables au niveau du tronc et des jambes pour l'ajout de plaques de fonte, permettant l'adaptation du poids selon les configurations de test. Visite de l'usine Invacare Alber (DE) pour l'étude de leur processus de test et de validation.</span>
+            <span data-lang="en">CAD design and modelling of a test dummy for wheelchairs, compliant with ISO 7176 standards. The dummy features modular compartments at trunk and leg level for cast iron plates, allowing weight adjustment across test configurations. Visit to the Invacare Alber factory (DE) to study their testing and validation process.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Conception mécanique</span>
+            <span class="teach-tag" data-lang="en">Mechanical Design</span>
+            <span class="teach-tag">NX Siemens</span>
+            <span class="teach-tag">ISO 7176</span>
+            <span class="teach-tag" data-lang="fr">Tests statiques</span>
+            <span class="teach-tag" data-lang="en">Static Testing</span>
+            <span class="teach-tag" data-lang="fr">Relations externes</span>
+            <span class="teach-tag" data-lang="en">External Relations</span>
+          </div>
+        </div>
+      </div>
+      <!-- ── CARTE 5 ── -->
+      <div class="card">
+        <div class="card-img">
+          <video src="assets/images/fatigue/fatigue_total_2_short.mp4" style="width:100%;height:100%;object-fit:cover;" loop muted autoplay playsinline></video>
+        </div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Conception et supervision</span><span data-lang="en">Design and supervision</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Test de fatigue mécanique sur une potence de Tryke thérapeutique</span>
+            <span data-lang="en">Mechanical fatigue test on a therapeutic Tryke gallows</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Test de fatigue mécanique sur la potence d'un tricycle thérapeutique suite à l'intégration d'un nouveau système torpedo. Gestion du projet, préparation du banc de test et mesure des forces appliquées sur les poignées lors d'essais réels. Conception du protocole de fatigue mécanique et installation de jauges de contrainte pour la validation du test.</span>
+            <span data-lang="en">Mechanical fatigue testing of a therapeutic tricycle handlebar stem following the integration of a new torpedo system. Project management, test bench preparation, and measurement of handlebar forces during real-use trials. Design of the fatigue test protocol and strain gauge installation for test validation.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Gestion de projet</span>
+            <span class="teach-tag" data-lang="en">Project Management</span>
+            <span class="teach-tag" data-lang="fr">Test de fatigue mécanique</span>
+            <span class="teach-tag" data-lang="en">Mechanical Fatigue Testing</span>
+            <span class="teach-tag" data-lang="fr">Jauge de contrainte</span>
+            <span class="teach-tag" data-lang="en">Strain Gauge</span>
+            <span class="teach-tag" data-lang="fr">Banc de test</span>
+            <span class="teach-tag" data-lang="en">Test Bench</span>
+          </div>
+        </div>
+      </div>
+      <!-- ── CARTE 6 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/other_hacka/hacka5.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Conception 3D et électronique</span><span data-lang="en">3D Design & Electronics</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Prototype de caméra de recul et système de monitoring pour fauteuil roulant électrique</span>
+            <span data-lang="en">Rearview camera and monitoring system prototype for electric wheelchair</span> 
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Participation au hackathon HackaHealth 2021 de l'ETH Zurich. Développement d'un système de caméra de recul pour fauteuil roulant électrique : caméra fixée à l'arrière du siège reliée à un écran de monitoring sur la commande, via Raspberry Pi. Conception mécanique et modélisation 3D des supports caméra et écran, installation et tests du système.</span>
+            <span data-lang="en">Participation in the HackaHealth 2021 hackathon at ETH Zurich. Development of a rear-view camera system for electric wheelchairs: a camera mounted at the back of the seat connected to a monitoring screen on the joystick unit via Raspberry Pi. Mechanical design and 3D modelling of camera and screen mounts, system installation and testing.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Conception mécanique</span>
+            <span class="teach-tag" data-lang="en">Mechanical Design</span>
+            <span class="teach-tag" data-lang="fr">Impression 3D</span>
+            <span class="teach-tag" data-lang="en">3D Printing</span>
+            <span class="teach-tag" data-lang="fr">Conception inclusive</span>
+            <span class="teach-tag" data-lang="en">Inclusive Design</span>
+            <span class="teach-tag" data-lang="fr">Électronique</span>
+            <span class="teach-tag" data-lang="en">Electronics</span>
+            <span class="teach-tag" data-lang="fr">Travail en équipe</span>
+            <span class="teach-tag" data-lang="en">Teamwork</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────    Data & IOT Mobility Section   ──────────────  -->
+<section id="iot">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-label"><span data-lang="fr">Ingénierie</span><span data-lang="en">Engineering</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Acquisition de données & IOT</span>
+        <span data-lang="en">Data acquisition & IOT</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">J'ai débuté ma carrière d'ingénieur à l'Institut pour l'Énergie et la Mobilité (IEM) de la Haute Ecole Spécialisée Bernoise (HESB), sur des projets touchant à l'automobile et à l'agriculture, avec comme dénominateur commun la collecte et le traitement de données. J'y ai contribué à plusieurs projets Innosuisse, avec pour rôle principal la création de prototypes (proof of concept) et la conduite de recherches exploratoires suivies de documentations techniques, en amont de projets d'envergure.</span>
+        <span data-lang="en">I began my engineering career at the Institute for Energy and Mobility (IEM) at Bern University of Applied Sciences (BFH), working on projects in the automotive and agricultural sectors, with data collection and processing as a common thread. I contributed to several Innosuisse projects, with a primary focus on prototype development (proof of concept) and exploratory research followed by technical documentation, upstream of larger-scale projects.</span>
+      </p>
+    </div>
+   <div class="grid-2">
+
+      <!-- ── CARTE 1 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/sccer/sccer.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Décryptage de système de communication & IOT</span><span data-lang="en">Decoding the communication system & IOT</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Acquisition et visualisation de données CAN bus sur véhicule électrique</span>
+            <span data-lang="en">CAN bus data acquisition and visualisation on electric vehicle</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Acquisition, décodage et visualisation de données sur véhicules électriques : BMW i3, Nissan Leaf, Mercedes eCitaro, et petits véhicules électriques via un convertisseur de signaux analogiques vers CAN (Würth CAN Modul SB ICCS 9). Collecte des signaux via la prise EOBD sur un microcontrôleur Python, analyse des communications CAN-BUS et des messages UDS (Unified Diagnostic Services), et décodage des PID (Parameter IDs) pour extraire des paramètres interprétables (couple, état batterie, etc.). Traitement des trames brutes pour restituer des grandeurs physiques cohérentes, transmission des données via MQTT (protocole de messagerie IoT), et conception d'un dashboard de visualisation des KPI (Key Performance Indicators) du véhicule.</span>
+            <span data-lang="en">Data acquisition, decoding, and visualization on electric vehicles: BMW i3, Nissan Leaf, Mercedes eCitaro, and small electric vehicles via an analog-to-CAN signal converter (Würth CAN Modul SB ICCS 9). Signal collection via the EOBD port on a Python microcontroller, CAN-BUS and UDS (Unified Diagnostic Services) message analysis, and PID (Parameter IDs) decoding to extract interpretable parameters (torque, battery state, etc.). Raw frame processing to recover meaningful physical values, data transmission via MQTT (IoT Messaging Protocol), and design of a vehicle KPI (Key Performance Indicators) dashboard.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">CAN-BUS</span>
+            <span class="teach-tag">OBD2 / EOBD</span>
+            <span class="teach-tag">UDS</span>
+            <span class="teach-tag">MQTT</span>
+            <span class="teach-tag">ISO 14230-3</span>
+            <span class="teach-tag">ISO 15765-3</span>
+            <span class="teach-tag" data-lang="fr">Acquisition de données</span>
+            <span class="teach-tag" data-lang="en">Data Acquisition</span>
+            <span class="teach-tag" data-lang="fr">Décodage de trames</span>
+            <span class="teach-tag" data-lang="en">Frame Decoding</span>
+            <span class="teach-tag" data-lang="fr">Scoping des KPI</span>
+            <span class="teach-tag" data-lang="en">KPI Scoping</span>
+            <span class="teach-tag">Thingsboard</span>
+            <span class="teach-tag" data-lang="fr">Blueprint de dashboard</span>
+            <span class="teach-tag" data-lang="en">Dashboard Blueprint</span>
+            <span class="teach-tag" data-lang="fr">Création de dashboard</span>
+            <span class="teach-tag" data-lang="en">Dashboard Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 2 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/ladr/ladR.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Application mobile & proof of concept</span>
+            <span data-lang="en">Mobile application & proof of concept</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">LadR - réseau de recharge communautaire pour véhicules électriques</span>
+            <span data-lang="en">LadR - community-based charging network for electric vehicles</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">En 2018, le manque de bornes de recharge et leurs coûts élevés freinaient l'adoption des véhicules électriques. LadR est un concept de réseau de recharge communautaire, sur le modèle d'Airbnb, permettant à des particuliers de louer leur borne à d'autres utilisateurs. Pour s'affranchir des coûts de connexion réseau, un système de réservation et d'activation via Bluetooth Low Energy (BLE) a été développé, fonctionnant sans connexion internet. Conception du réseau et de la logique d'échange de données BLE, rédaction du business plan, développement d'une application smartphone et d'un prototype fonctionnel de réservation et d'activation de borne.</span>
+            <span data-lang="en">In 2018, the lack of charging infrastructure and high installation costs were limiting EV adoption. LadR is a community-based charging network concept, inspired by Airbnb, enabling private owners to rent out their charging station to other users. To eliminate network connectivity costs, a reservation and activation system via Bluetooth Low Energy (BLE) was developed, operating fully offline. Network and BLE data exchange logic design, business plan writing, smartphone app development, and a functional prototype for station reservation and activation.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Conception de réseau</span>
+            <span class="teach-tag" data-lang="en">Network Design</span>
+            <span class="teach-tag">Business Plan</span>
+            <span class="teach-tag">BLE</span>
+            <span class="teach-tag">Java</span>
+            <span class="teach-tag">SQLite</span>
+            <span class="teach-tag">XML</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 4 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/ondular/ondular_cover.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Système embarqué & IoT</span>
+            <span data-lang="en">Embedded system & IoT</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Ondular - dispositif de suivi agricole par analyse vibratoire et GPS</span>
+            <span data-lang="en">Ondular - agricultural monitoring device using vibration analysis and GPS</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Développement d'un dispositif de suivi agricole basé sur un microcontrôleur Python fixé au châssis de machines agricoles. Localisation et suivi GPS de la machine, et positionnement spatial du module pour le suivi d'outils montés sur tracteur. Analyse vibratoire par accéléromètre et transformée de Fourier rapide (FFT) pour extraire des fréquences fondamentales (régime moteur, état marche/arrêt). Transmission des données via LoRaWAN, collecte et visualisation sur Thingsboard.</span>
+            <span data-lang="en">Development of an agricultural monitoring device based on a Python microcontroller mounted on farm machinery. GPS tracking and spatial positioning of the module for mounted tool monitoring. Vibration analysis via accelerometer and Fast Fourier Transform (FFT) to extract fundamental frequencies (engine speed, on/off state). Data transmission via LoRaWAN, collection and visualization on Thingsboard. </span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">FFT</span>
+            <span class="teach-tag">GPS Tracking</span>
+            <span class="teach-tag">IoT</span>
+            <span class="teach-tag">LoRaWAN</span>
+            <span class="teach-tag">Thingsboard</span>
+            <span class="teach-tag" data-lang="fr">Scoping des KPI</span>
+            <span class="teach-tag" data-lang="en">KPI Scoping</span>
+            <span class="teach-tag">Thingsboard</span>
+            <span class="teach-tag" data-lang="fr">Blueprint de dashboard</span>
+            <span class="teach-tag" data-lang="en">Dashboard Blueprint</span>
+            <span class="teach-tag" data-lang="fr">Création de dashboard</span>
+            <span class="teach-tag" data-lang="en">Dashboard Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CARTE 3 ── -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/agrolora/wasserventil_dash.png" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Smartfarming & IoT</span>
+            <span data-lang="en">Smartfarming & IoT</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">AgroLORA - système d'irrigation intelligent piloté par dashboard</span>
+            <span data-lang="en">AgroLORA - smart irrigation system controlled via dashboard</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Intégration au projet IoT AgroLoRa de l'IEM, plateforme de monitoring agricole existante (humidité du sol, pluviométrie). Développement d'un système de vannes d'irrigation intelligentes pilotables à distance via dashboard, avec possibilité d'automatisation basée sur les données de la plateforme. Programmation d'un microcontrôleur Python pour le pilotage des vannes et la remontée d'état (ouverture/fermeture) via LoRaWAN. Conception du dashboard de supervision et de contrôle.</span>
+            <span data-lang="en">Integration into the IEM AgroLoRa IoT platform, an existing agricultural monitoring system (soil moisture, rainfall). Development of a smart irrigation valve system remotely controllable via dashboard, with automation capabilities based on platform data. Python microcontroller programming for valve actuation and status feedback (open/closed) via LoRaWAN. Design of the supervision and control dashboard.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag">IoT</span>
+            <span class="teach-tag">LoRaWAN</span>
+            <span class="teach-tag">Thingsboard</span>
+            <span class="teach-tag" data-lang="fr">Création de dashboard</span>
+            <span class="teach-tag" data-lang="en">Dashboard Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────    Commitments & Creations    ────────────── -->
+<section id="others">
+  <div class="section-inner">
+    <div class="section-header">
+      <p class="section-label"><span data-lang="fr">Engagements & créations</span><span data-lang="en">Commitments & Creations</span></p>
+      <h2 class="section-title">
+        <span data-lang="fr">Engagements & créations</span>
+        <span data-lang="en">Commitments & Creations</span>
+      </h2>
+      <p class="section-desc">
+        <span data-lang="fr">Au-delà des compétences techniques, j'ai toujours eu à coeur de m'engager pour des projets qui font sens pour moi. Cela m'a conduit à participer à plusieurs projets pédagogiques, visant l'enseignement technique et la découverte du métier d'ingénieur. Parallèlement, j'ai développé des compétences en illustration et design numérique au fil de mes projets professionnels. Cette envie de créer dépasse aussi le cadre professionnel, avec le mélange entre l'ingénierie et le traitement audio, ma passion depuis l'adolescence.</span>
+        <span data-lang="en">Beyond technical skills, I have always been driven to engage in projects that matter to me. This led me to contribute to several educational projects aimed at teaching engineering and making the profession more accessible. Along the way, I developed skills in illustration and digital design through my professional work. This creative drive extends beyond the professional sphere, with a passion for combining engineering and audio processing, a hobby I have pursued since adolescence.</span>   
+      </p>
+    </div>
+
+    <!-- Teaching (subcategory) -->
+    <h3 id="others-pedagogie" style="font-family:var(--serif); font-size:1.2rem; color:var(--ink); margin-bottom:20px; padding-bottom:8px; border-bottom:1px solid var(--border);">
+      <span data-lang="fr">Pédagogie</span>
+      <span data-lang="en">Teaching</span>
+    </h3>
+    <div class="grid-2" style="margin-bottom:48px;">
+  
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/jc_photos/jc_cover.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Organisation d'évenements</span><span data-lang="en">Event organization</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Junior Certificate - camps de découvert en ingénerie automobile</span>
+            <span data-lang="en">Junior Certificate - discovery camps in automotive engineering</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Chargé de repenser le recrutement en Bachelor d'ingénierie automobile, jusque-là limité à une journée portes ouvertes peu engageante pour les jeunes. J'ai conçu et organisé le "Junior Certificate" : un camp de découverte de 2 jours sur inscription, offrant à une vingtaine de jeunes une immersion concrète dans les laboratoires de l'école (création de jantes par CAD, construction d'un moteur Stirling, crash test, analyse d'accident). Conception du programme, participation à la gestion du budget et prise en charge de la logistique (hôtel, repas, transport), accompagnement de chaque enseignant dans le design de son activité. Animation personnelle d'un atelier de thermodynamique avec construction d'un moteur Stirling DIY. Gestion de la communication sur les réseaux sociaux et production de contenu photo/vidéo promotionnel.</span>
+            <span data-lang="en">Tasked with rethinking the automotive engineering Bachelor recruitment strategy, previously limited to a traditional open day offering little engagement for prospective students. I designed and organized the "Junior Certificate": a 2-day discovery camp with limited enrollment, offering around twenty motivated students a concrete hands-on immersion across the school's laboratories (CAD wheel design, Stirling engine build, crash test, accident analysis). Full program design, contribution to budget management and logistics coordination (hotel, meals, transport), and support to each teacher in designing their activity. Personal delivery of a thermodynamics workshop featuring a DIY Stirling engine build. Social media communication management and promotional photo/video content production.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag" data-lang="fr">Gestion de projet</span>
+            <span class="teach-tag" data-lang="en">Project Management</span>
+            <span class="teach-tag" data-lang="fr">Organisation logistique</span>
+            <span class="teach-tag" data-lang="en">Logistics Management</span>
+            <span class="teach-tag" data-lang="fr">Conception pédagogique</span>
+            <span class="teach-tag" data-lang="en">Instructional Design</span>
+            <span class="teach-tag" data-lang="fr">Réseaux sociaux</span>
+            <span class="teach-tag" data-lang="en">Social Media</span>
+            <span class="teach-tag" data-lang="fr">Communication</span>
+            <span class="teach-tag" data-lang="en">Communication</span>
+          </div>
+          <div class="card-links">
+            <a href="https://www.youtube.com/watch?v=d-dEBuIYn5s" class="card-link" target="_blank">
+              <span data-lang="fr">Voir la vidéo</span>
+              <span data-lang="en">Watch video</span>
+              <span class="dl-badge">DE/FR</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/europa/europa_cover.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category"><span data-lang="fr">Création de cours en ligne</span><span data-lang="en">Online lessons creation</span></p>
+          <h3 class="card-title">
+            <span data-lang="fr">Cours préparatoire en technique automobile pour l'entrée à l'école d'ingénieurs</span>
+            <span data-lang="en">Preparatory course in automotive engineering for engineering school admission</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">La Haute École Spécialisée Bernoise impose une année de pratique en atelier aux étudiants sans CFC dans un domaine automobile, les laissant seuls face à l'apprentissage théorique, sans garantie d'encadrement ni d'égalité des chances. Face à cette situation, j'ai initié et développé un cours en ligne sur Moodle couvrant les chapitres clés de la technique automobile, basé sur le référentiel CFC "Technologies des véhicules à moteur" (Europa Lehrmittel), avec accord de l'éditeur pour l'utilisation des illustrations. Le cours intègre flashcards, quiz, textes à trous, rapports avec feedback personnalisé et un système de gamification par trophées pour encourager l'apprentissage autonome.</span>
+            <span data-lang="en">The Bern University of Applied Sciences requires students without a vocational diploma in an automotive-related field to complete one year of workshop practice, leaving them solely responsible for their theoretical preparation with no guaranteed support or equal opportunities. Faced with this situation, I initiated and developed an online course on Moodle covering the key chapters of automotive technology, based on the CFC reference textbook "Technologies des véhicules à moteur" (Europa Lehrmittel), with the publisher's agreement for illustration use. The course includes flashcards, quizzes, fill-in-the-blank exercises, reports with personalized feedback, and a trophy-based gamification system to foster independent learning.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Moodle</span>
+            <span class="teach-tag" data-lang="fr">Création de cours en ligne</span>
+            <span class="teach-tag" data-lang="en">Online Course Creation</span>
+            <span class="teach-tag" data-lang="fr">Ingénierie pédagogique</span>
+            <span class="teach-tag" data-lang="en">Instructional Design</span>
+            <span class="teach-tag" data-lang="fr">Gamification</span>
+            <span class="teach-tag" data-lang="en">Gamification</span>
+            <span class="teach-tag" data-lang="fr">Technique automobile</span>
+            <span class="teach-tag" data-lang="en">Automotive Technology</span>
+          </div> 
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/laborblock/fee.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Électronique & circuits</span>
+            <span data-lang="en">Electronics & circuits</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Laboratoire d'électrotechnique - Création d'un multivibrateur astable</span>
+            <span data-lang="en">Electrotechnical Laboratory - Creation of an astable multivibrator</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Encadrement d'un laboratoire d'électrotechnique introduisant les étudiants à l'électronique à travers la réalisation d'un multivibrateur astable. Présentation technique du circuit, simulation sous TINA (Texas Instruments), introduction au design de PCB double face sous Eagle avec règles de dimensionnement, atelier de soudure de composants, et formation à la rédaction technique structurée sous LaTeX.</span>
+            <span data-lang="en">Supervision of an electrical engineering lab introducing students to electronics through the design and build of an astable multivibrator. Circuit theory presentation, simulation in TINA (Texas Instruments), introduction to double-sided PCB design in Eagle with dimensioning rules, component soldering workshop, and training in structured technical documentation with LaTeX.</span>
+          </p>
+        <div class="teach-tags">
+          <span class="teach-tag" data-lang="fr">Électrotechnique</span>
+          <span class="teach-tag" data-lang="en">Electrical Engineering</span>
+          <span class="teach-tag" data-lang="fr">Conception de PCB</span>
+          <span class="teach-tag" data-lang="en">PCB Design</span>
+          <span class="teach-tag" data-lang="fr">Mesure à l'oscilloscope</span>
+          <span class="teach-tag" data-lang="en">Oscilloscope Measurement</span>
+          <span class="teach-tag" data-lang="fr">Soudure électronique</span>
+          <span class="teach-tag" data-lang="en">Electronic Soldering</span>
+          <span class="teach-tag">LaTeX</span>
+        </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/laborblock/can.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Électronique automobile</span>
+            <span data-lang="en">Automotive electronics</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Étude des communications par bus de données en électronique véhicule</span>
+            <span data-lang="en">Vehicle electronics - data bus communication study</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Encadrement d'un laboratoire d'électronique véhicule couvrant les protocoles de communication par bus de données en environnement automobile. Après un bloc théorique sur les différents bus disponibles, les étudiants travaillaient sur Arduino SparkFun équipé d'un CAN-BUS shield pour communiquer avec un véhicule réel. Activité pratique de décodage de trames CAN sur scooter électrique pour extraire des paramètres clés du véhicule.</span>
+            <span data-lang="en">Supervision of a vehicle electronics lab covering data bus communication protocols in automotive environments. Following a theoretical block on available bus systems, students worked on a SparkFun Arduino with a CAN-BUS shield to communicate with a real vehicle. Hands-on activity involving CAN frame decoding on an electric scooter to extract key vehicle parameters.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">CAN-BUS</span>
+            <span class="teach-tag" data-lang="fr">Bus de données</span>
+            <span class="teach-tag" data-lang="en">Data Bus</span>
+            <span class="teach-tag">Arduino SparkFun RedBoard</span>
+            <span class="teach-tag">C</span>
+            <span class="teach-tag" data-lang="fr">Décodage de trames</span>
+            <span class="teach-tag" data-lang="en">Frame Decoding</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Illustration (subcategory) -->
+    <h3 id="others-illustrations" style="font-family:var(--serif); font-size:1.2rem; color:var(--ink); margin-bottom:20px; padding-bottom:8px; border-bottom:1px solid var(--border);">
+      <span data-lang="fr">Illustrations</span>
+      <span data-lang="en">Illustrations</span>
+    </h3>
+    <div class="illus-grid" style="margin-bottom:48px;">
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/msc_illu/4_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Visuels produits pour mon projet de master autour des données cliniques, du traitement du signal au machine learning.</span><span data-lang="en">Visuals produced for my Master's project on clinical data, from signal processing to machine learning.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/msc_illu/4.png", "assets/images/msc_illu/2.png", "assets/images/msc_illu/3.png", "assets/images/msc_illu/1.png", "assets/images/msc_illu/5.png", "assets/images/msc_illu/6.png", "assets/images/msc_illu/7.png", "assets/images/msc_illu/8.png", "assets/images/msc_illu/9.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/msc_graph/1_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Sélection de graphiques produits lors de projets d'études, allant de créations entièrement réalisées sous Adobe aux visualisations Python (Matplotlib, Seaborn) retouchées et mises en forme.</span><span data-lang="en">A selection of charts produced during academic projects, ranging from fully redesigned Adobe illustrations to Python visualizations (Matplotlib, Seaborn) refined and polished.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/msc_graph/1.png", "assets/images/msc_graph/1_vegf.png","assets/images/msc_graph/2.png", "assets/images/msc_graph/3.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+          <span class="teach-tag">Seaborn</span>
+          <span class="teach-tag">Matplotlib</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/phd_micro/Figure_2_plasmid_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Illustrations de vulgarisation sur les mécanismes d'échange de plasmides, réalisées pour un article scientifique en microbiologie.</span><span data-lang="en">Science communication illustrations on plasmid exchange mechanisms, created for a microbiology research article.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/phd_micro/Figure_2_plasmid.png", "assets/images/phd_micro/Figure_1_phage.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+        <span class="teach-tag">Adobe InDesign</span>
+        <span class="teach-tag">Adobe Illustrator</span>
+      </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/bme_lab_vegf/4and5.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Combinaison d'images de microscopie à fluorescence et de schémas explicatifs, réalisée pour illustrer un projet de biomicrofluidique.</span><span data-lang="en">A mix of fluorescence microscopy images and explanatory diagrams, created to support a biomicrofluidics project.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/bme_lab_vegf/4and5.png", "assets/images/bme_lab_vegf/2.png", "assets/images/bme_lab_vegf/3.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/sci_graph/1_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Graphiques réalisés pour un article technique présentant des tests comparatifs sur trois systèmes de traction de fauteuils roulants.</span><span data-lang="en">Charts created for a technical journal article presenting comparative tests on three wheelchair propulsion systems.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/sci_graph/1.png", "assets/images/sci_graph/2.png", "assets/images/sci_graph/3.png", "assets/images/sci_graph/4.png", "assets/images/sci_graph/5.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/sci_illu/0.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Schémas descriptifs des parcours routiers réalisés lors d'une étude comparative entre différents systèmes de traction électrique pour fauteuils roulants.</span><span data-lang="en">Descriptive diagrams of the road test courses conducted during a comparative study of electric propulsion systems for wheelchairs.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/sci_illu/4.png", "assets/images/sci_illu/1.png", "assets/images/sci_illu/2.png", "assets/images/sci_illu/3.png", "assets/images/sci_illu/5.png", "assets/images/sci_illu/6.png", "assets/images/sci_illu/7.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openVideoLightbox(this, 0)">
+        <div class="illus-thumb">
+            <video src="assets/images/sci_ae_wc/anime_wc1.mp4" style="width:100%;aspect-ratio:1/1;object-fit:contain;" loop muted autoplay playsinline></video>
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Deux animations réalisées pour une vidéo explicative présentant un projet du SCI-Mobility Lab : un fauteuil roulant électrique à bras indépendants conçu pour réduire les contraintes mécaniques sur le tronc de l'utilisateur.</span><span data-lang="en">Two animations created for an explanatory video presenting a SCI-Mobility Lab project: an electric wheelchair with independent arms designed to reduce mechanical stress on the user's trunk.</span></p>
+        <script type="application/json" class="video-data">
+          ["assets/images/sci_ae_wc/anime_wc1.mp4", "assets/images/sci_ae_wc/anime_wc2.mp4"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe Illustrator</span>
+          <span class="teach-tag">Adobe AfterEffects</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/sci_logo/logo_sci_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Logo réalisé à l'occasion de l'inauguration du SCI-Mobility Lab, où la colonne vertébrale remplace le "i" de SCI (Spinal Cord Injury).</span><span data-lang="en">Logo created for the inauguration of the SCI-Mobility Lab, where the spine replaces the "i" in SCI (Spinal Cord Injury).</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/sci_logo/logo_sci.jpeg"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+      <div class="illus-item" onclick="openLightbox(this, 0)">
+        <div class="illus-thumb">
+          <img src="assets/images/jc_poster/jc_fr_21_cover.png" style="width:100%;aspect-ratio:1/1;object-fit:contain;">
+        </div>
+        <p class="illus-caption"><span data-lang="fr">Affiche et flyers réalisés en français et en allemand pour la première édition du camp "Junior Certificate" de la Haute École Spécialisée Bernoise.</span><span data-lang="en">Poster and flyers designed in French and German for the first edition of the Bern University of Applied Sciences "Junior Certificate" camp.</span></p>
+        <script type="application/json" class="illus-data">
+          ["assets/images/jc_poster/jc_fr_21.png", "assets/images/jc_poster/jc_de_21.png"]
+        </script>
+        <div class="teach-tags" style="padding: 0 12px 12px 12px;">
+          <span class="teach-tag">Adobe InDesign</span>
+          <span class="teach-tag">Adobe Illustrator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio development (subcategory) -->
+    <h3 id="others-audio" style="font-family:var(--serif); font-size:1.2rem; color:var(--ink); margin-bottom:20px; padding-bottom:8px; border-bottom:1px solid var(--border);">
+      <span data-lang="fr">Développement audio</span>
+      <span data-lang="en">Audio development</span>
+    </h3>
+    <div class="grid-4">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/others/tuner.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Programmation & audio</span>
+            <span data-lang="en">Programming & audio</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Accordeur chromatique sur microcontrôleur par analyse FFT</span>
+            <span data-lang="en">Chromatic tuner on microcontroller using FFT analysis</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Développement d'un accordeur chromatique fonctionnel sur microcontrôleur STM32 (Nucleo F446RE) en C, avec détection de fréquence fondamentale par FFT. Intégration d'un micro MEMS via protocole I2S, décharge du CPU par DMA en continu, affichage sur écran LCD via SPI et interface graphique PC via USART. Conception d'un pipeline logiciel d'optimisation (filtrage, padding, downsampling) et d'une gestion de batterie multi-modes.</span>
+            <span data-lang="en">Development of a functional chromatic tuner on STM32 microcontroller (Nucleo F446RE) in C, with fundamental frequency detection via FFT. MEMS microphone integration via I2S protocol, continuous CPU offloading via DMA, LCD display via SPI and PC graphical interface via USART. Design of an optimization software pipeline (filtering, padding, downsampling) and multi-mode battery management.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">STM32</span>
+            <span class="teach-tag">C</span>
+            <span class="teach-tag">FFT</span>
+            <span class="teach-tag">I2S · SPI · USART</span>
+            <span class="teach-tag">DMA</span>
+            <span class="teach-tag">GPIO</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/vmg-dev1/GuitarTuner-UNIBE-Repo" class="card-link" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/others/spectral_col.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Analyse spectrale & mixage</span>
+            <span data-lang="en">Spectral analysis & mixing</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Outil de détection des collisions fréquentielles pour la production musicale</span>
+            <span data-lang="en">Frequency collision detection tool for music production</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Développement d'un outil Python de visualisation des collisions fréquentielles pour le mixage musical. L'outil analyse et affiche les bandes de fréquences occupées par chaque instrument, identifie les zones de collision et met en évidence les plages disponibles, facilitant l'équilibrage tonal et le sound design dans des productions complexes.</span>
+            <span data-lang="en">Development of a Python tool for visualizing frequency collisions in music mixing. The tool analyzes and displays the frequency bands occupied by each instrument, identifies collision zones and highlights available ranges, supporting tonal balance and sound design in complex productions.</span>
+          </p>
+          <div class="teach-tags">
+            <span class="teach-tag">Python</span>
+            <span class="teach-tag" data-lang="fr">Visualisation de données</span>
+            <span class="teach-tag" data-lang="en">Data Visualization</span>
+            <span class="teach-tag" data-lang="fr">Mixage musical</span>
+            <span class="teach-tag" data-lang="en">Music Mixing</span>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/vmg-dev1/Frequency_analyser_repo" class="card-link" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/others/ableton.png" style="width:100%;object-fit:contain;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Développement Max4Live</span>
+            <span data-lang="en">Max4Live development</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Visualisateur spectral temps réel pour Ableton Live</span>
+            <span data-lang="en">Real-time spectral visualizer for Ableton Live</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Développement d'un plug-in Max for Live (M4L) pour Ableton Live 11, offrant une visualisation spectrale temps réel par analyse FFT. Au-delà de l'aspect technique, le projet explore le potentiel artistique de Max for Live : des visualisations 2D lisibles (spectre fréquentiel, comparable aux représentations utilisées en ornithologie) jusqu'à des visuels 3D génératifs répondant en temps réel à la musique en entrée.</span>
+            <span data-lang="en">Development of a Max for Live (M4L) plug-in for Ableton Live 11, providing real-time spectral visualization via FFT analysis. Beyond the technical aspect, the project explores the artistic potential of Max for Live: from readable 2D visualizations (frequency spectrum, similar to representations used in ornithology) to generative 3D visuals responding in real time to the audio input.</span>
+          </p>
+        <div class="teach-tags">
+          <span class="teach-tag">Max for Live (M4L)</span>
+          <span class="teach-tag">Ableton Live 11</span>
+          <span class="teach-tag" data-lang="fr">FFT</span>
+          <span class="teach-tag" data-lang="en">FFT</span>
+          <span class="teach-tag" data-lang="fr">Patching</span>
+          <span class="teach-tag" data-lang="en">Patching</span>
+          <span class="teach-tag" data-lang="fr">Visualisation spectrale</span>
+          <span class="teach-tag" data-lang="en">Spectral Visualization</span>
+          <span class="teach-tag" data-lang="fr">Génératif 3D</span>
+          <span class="teach-tag" data-lang="en">3D Generative Art</span>
+        </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <div class="card-img"><img src="assets/images/others/bigmuff.jpeg" style="width:100%;object-fit:contains;"></div>
+        <div class="card-body">
+          <p class="card-category">
+            <span data-lang="fr">Électronique analogique</span>
+            <span data-lang="en">Analog electronics</span>
+          </p>
+          <h3 class="card-title">
+            <span data-lang="fr">Pédale d'effet Fuzz analogique sur breadboard</span>
+            <span data-lang="en">Analog Fuzz effect pedal on breadboard</span>
+          </h3>
+          <p class="card-desc">
+            <span data-lang="fr">Recréation sur breadboard de la pédale Fuzz "Big Muff" d'Electro-Harmonix à partir de son schéma électrique original. Au-delà du câblage du circuit, le projet a impliqué l'intégration des ports audio, des potentiomètres de gain et de tonalité, ainsi que la gestion des bruits parasites liés à l'alimentation. La pédale fonctionnelle obtenue permet la permutation de différents transistors, ouvrant la possibilité de tester des combinaisons sonores inédites.</span>
+            <span data-lang="en">Breadboard recreation of the Electro-Harmonix "Big Muff" fuzz pedal from its original circuit schematic. Beyond basic wiring, the project involved integrating audio ports, gain and tone potentiometers, and managing power supply noise. The functional pedal allows transistor swapping, enabling experimentation with unique distortion combinations.</span>
+          </p>
+        <div class="teach-tags">
+          <span class="teach-tag" data-lang="fr">Électronique analogique</span>
+          <span class="teach-tag" data-lang="en">Analog Electronics</span>
+          <span class="teach-tag" data-lang="fr">Prototypage sur breadboard</span>
+          <span class="teach-tag" data-lang="en">Breadboard Prototyping</span>
+          <span class="teach-tag" data-lang="fr">Design audio</span>
+          <span class="teach-tag" data-lang="en">Sound Design</span>
+        </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- ──────────────    Contact  ────────────── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="section-title"><span data-lang="fr">Restons en contact</span><span data-lang="en">Get in touch</span></h2>
+        <p class="section-desc" style="margin-top: 16px;">
+          <span data-lang="fr">N'hésitez pas à me contacter pour toute opportunité professionnelle, collaboration ou question.</span>
+          <span data-lang="en">Feel free to reach out for any professional opportunity, collaboration or question.</span>
+        </p>
+        <div class="contact-links" style="margin-top: 32px;">
+          <a href="mailto:vincent.m.genoud@gmail.com" class="contact-link"><span class="contact-icon">✉</span> vincent.m.genoud@gmail.com</a>
+          <a href="https://linkedin.com/in/vincentmorier-genoud/" class="contact-link" target="_blank"><span class="contact-icon">in</span> linkedin.com/in/vincentmorier-genoud/</a>
+          <a href="https://github.com/vmg-dev1" class="contact-link" target="_blank"><span class="contact-icon">gh</span> github.com/vmg-dev1</a>
+        </div>
+      </div>
+      <div class="cv-block">
+        <p class="section-label" style="color: #8297a8;">Curriculum vitae</p>
+        <p>
+          <span data-lang="fr">Mon CV complet est disponible en téléchargement en français et en anglais.</span>
+          <span data-lang="en">My full resume is available for download in French and English.</span>
+        </p>
+        <div class="cv-dl-row">
+          <a href="assets/docs/MORIER-GENOUD_CV_FR_2026.pdf" class="cv-dl-btn" target="_blank">CV <span class="cv-dl-badge">FR</span></a>
+          <a href="assets/docs/MORIER-GENOUD_CV_EN.pdf" class="cv-dl-btn" target="_blank">Resume <span class="cv-dl-badge">EN</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Vincent Morier-Genoud — <span data-lang="fr">Ingénieur Biomédical</span><span data-lang="en">Biomedical Engineer</span></p>
+</footer>
+
+/* JavaScript functions */
+<script>
+let lbImages = [];
+let lbIndex = 0;
+let vbVideos = [];
+let vbIndex = 0;
+
+function toggleAnnexMenu(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('annex-menu');
+  const btn = document.getElementById('annex-btn');
+  const isOpen = menu.style.display === 'block';
+  menu.style.display = isOpen ? 'none' : 'block';
+  btn.querySelector('span:last-child').textContent = isOpen ? '▴' : '▾';
+}
+
+function closeAnnexMenu() {
+  document.getElementById('annex-menu').style.display = 'none';
+  document.getElementById('annex-btn').querySelector('span:last-child').textContent = '▴';
+}
+
+document.addEventListener('click', () => closeAnnexMenu());
+
+function openLightbox(item, startIndex) {
+  const img = item.querySelector('img');
+  if (!img) return;
+  const dataEl = item.querySelector('.illus-data');
+  lbImages = dataEl ? JSON.parse(dataEl.textContent) : [img.src];
+  lbIndex = startIndex || 0;
+  updateLightbox();
+  document.getElementById('lightbox').style.display = 'flex';
+}
+
+function updateLightbox() {
+  document.getElementById('lightbox-img').src = lbImages[lbIndex];
+  // points de navigation
+  const dots = document.getElementById('lightbox-dots');
+  dots.innerHTML = lbImages.map((_, i) =>
+    `<span onclick="event.stopPropagation(); lbIndex=${i}; updateLightbox()" style="width:8px;height:8px;border-radius:50%;background:${i===lbIndex?'#fff':'rgba(255,255,255,0.4)'};cursor:pointer;display:inline-block;"></span>`
+  ).join('');
+}
+
+function slideLightbox(dir) {
+  const isVideo = document.getElementById('lightbox-video').style.display !== 'none';
+  if (isVideo) {
+    vbIndex = (vbIndex + dir + vbVideos.length) % vbVideos.length;
+    updateVideoLightbox();
+  } else {
+    lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+    updateLightbox();
+  }
+}
+
+function handleLightboxClick(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+function openVideoLightbox(item, startIndex) {
+  const dataEl = item.querySelector('.video-data');
+  const firstVideo = item.querySelector('video');
+  vbVideos = dataEl ? JSON.parse(dataEl.textContent) : [firstVideo.getAttribute('src')];
+  vbIndex = startIndex || 0;
+  updateVideoLightbox();
+  document.getElementById('lightbox').style.display = 'flex';
+}
+
+function updateVideoLightbox() {
+  const img = document.getElementById('lightbox-img');
+  const video = document.getElementById('lightbox-video');
+  const src = document.getElementById('lightbox-video-src');
+  img.style.display = 'none';
+  video.style.display = 'block';
+  src.src = vbVideos[vbIndex];
+  video.load();
+  video.muted = true;
+  video.play();
+  // points de navigation
+  const dots = document.getElementById('lightbox-dots');
+  dots.innerHTML = vbVideos.map((_, i) =>
+    `<span onclick="event.stopPropagation(); vbIndex=${i}; updateVideoLightbox()" style="width:8px;height:8px;border-radius:50%;background:${i===vbIndex?'#fff':'rgba(255,255,255,0.4)'};cursor:pointer;display:inline-block;"></span>`
+  ).join('');
+}
+
+function closeLightbox() {
+  const video = document.getElementById('lightbox-video');
+  const img = document.getElementById('lightbox-img');
+  video.pause();
+  video.style.display = 'none';
+  img.style.display = 'block';
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('video').forEach(v => {
+    v.muted = true;
+    v.play().catch(() => {});
+  });
+});
+
+// ── Chemins des CV (modifie si tu n'as qu'une seule version) ──
+const cvFiles = { fr: 'assets/docs/MORIER-GENOUD_CV_FR_2026.pdf', en: 'MORIER-GENOUD_CV_EN.pdf' };
+
+function setLang(lang) {
+  // 1. Bascule la classe sur <body>
+  document.body.classList.remove('lang-fr', 'lang-en');
+  document.body.classList.add('lang-' + lang);
+
+  // 2. Boutons actifs
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  // 3. Attribut lang (SEO + accessibilité)
+  document.documentElement.lang = lang;
+
+  // 4. Lien CV du héro
+  document.getElementById('cv-hero-btn').href = cvFiles[lang];
+
+  // 5. Boutons de téléchargement bilingues ─────────────────────────────────
+  //    Règle : si dans un même conteneur il y a un bouton data-dl="fr" ET
+  //    un bouton data-dl="en", on n'affiche que celui qui correspond à la
+  //    langue active. Si un seul existe (document dans une seule langue),
+  //    il reste toujours visible.
+  document.querySelectorAll('[data-dl]').forEach(btn => {
+    const parent = btn.parentElement;
+    const hasBoth = parent.querySelector('[data-dl="fr"]') && parent.querySelector('[data-dl="en"]');
+    btn.style.display = hasBoth ? (btn.getAttribute('data-dl') === lang ? 'inline-flex' : 'none') : 'inline-flex';
+  });
+
+  // 6. Save preferences
+  localStorage.setItem('lang', lang);
+}
+
+// Change the language saved, or detect the one saved in the navigator
+(function() {
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('fr') ? 'fr' : 'en';
+  setLang(saved || browser);
+})();
+</script>
+</body>
+</html>
